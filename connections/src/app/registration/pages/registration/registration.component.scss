@@ -1,0 +1,33 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.registration {
+  width: 380px;
+  border-radius: 5px;
+  padding: 25px;
+  background: #f2f2f2;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__field {
+    width: 330px;
+    max-height: 80px;
+  }
+
+  &__input {
+    margin: 0;
+    width: 100%;
+  }
+
+  &__button {
+    margin-top: 45px;
+  }
+}
