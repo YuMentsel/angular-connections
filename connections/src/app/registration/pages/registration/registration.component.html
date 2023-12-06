@@ -6,12 +6,12 @@
       <input
         class="registration__input"
         type="text"
-        formControlName="firstName"
+        formControlName="name"
         placeholder="John"
         matInput
         autocomplete="off"
       />
-      <mat-error>{{ getErrorMessage('firstName') }}</mat-error>
+      <mat-error>{{ getErrorMessage('name') }}</mat-error>
     </mat-form-field>
 
     <mat-form-field class="registration__field" appearance="fill">
@@ -40,14 +40,17 @@
       <mat-error>{{ getErrorMessage('password') }}</mat-error>
     </mat-form-field>
 
-    <button
-      class="registration__button"
-      type="submit"
-      mat-raised-button
-      color="primary"
-      [disabled]="!form.valid"
-    >
-      Register
-    </button>
+    <div class="registration__button-wrapper">
+      <a class="registration__link" routerLink="/signin">Click here to Login</a>
+      <button
+        class="registration__button"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid || loading"
+      >
+        {{ loading ? 'Submitting...' : 'Submit' }}
+      </button>
+    </div>
   </form>
 </div>

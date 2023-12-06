@@ -1,26 +1,39 @@
 export enum RegistrationFormErrorMessages {
-  firstName = 'Please enter a first name',
-  firstNameMax = 'The name is invalid, maximum 40 characters',
-  firstNameValid = 'The name is invalid, allowed only letters or spaces',
+  name = 'Please enter a first name',
+  nameMax = 'The name is invalid, maximum 40 characters',
+  nameValid = 'The name is invalid, allowed only letters or spaces',
   email = 'Please enter a email',
   emailValid = 'The email is invalid',
+  emailTaken = 'The email is taken',
   password = 'Please enter a password',
   passwordValid = `Your password isn't strong enough (minimum 8 symbols that include at least 1 capital letter, at least 1 digit and at least 1 special symbol - !@#$%^&*)`,
+}
+
+export enum ErrorTypes {
+  primaryDuplicationException = 'PrimaryDuplicationException',
 }
 
 export enum ValidatorTypes {
   required = 'required',
   email = 'email',
   maxlength = 'maxlength',
+  taken = 'taken',
   pattern = 'pattern',
 }
 
 export enum ValidatorPatterns {
-  firstName = '^[a-zA-Zs ]{1,40}$',
+  name = '^[a-zA-Zs ]{1,40}$',
   password = `(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$`,
 }
 
 export enum RouterPaths {
   signup = '/signup',
   signin = '/signin',
+  registration = '/registration',
+}
+
+export enum SnackBar {
+  success = 'Registration has been successful!',
+  error = 'Registration failed! ',
+  closeAction = 'Close',
 }

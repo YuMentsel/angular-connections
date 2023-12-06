@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl } from '@angular/forms';
-import { errorMessages } from '../constants/constants';
-import { ValidatorTypes } from '../constants/enums';
+import { errorMessages } from '../../constants/constants';
+import { ValidatorTypes } from '../../constants/enums';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +11,7 @@ export class AuthService {
     if (formField?.errors?.[ValidatorTypes.required]) return errorMessages[field];
     if (formField?.errors?.[ValidatorTypes.email]) return errorMessages[`${field}Valid`];
     if (formField?.errors?.[ValidatorTypes.maxlength]) return errorMessages[`${field}Max`];
+    if (formField?.errors?.[ValidatorTypes.taken]) return errorMessages[`${field}Taken`];
     return formField?.errors?.[ValidatorTypes.pattern] ? errorMessages[`${field}Valid`] : '';
   }
 }
