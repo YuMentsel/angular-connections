@@ -11,6 +11,7 @@ export enum RegistrationFormErrorMessages {
 
 export enum ErrorTypes {
   primaryDuplicationException = 'PrimaryDuplicationException',
+  notFoundException = 'NotFoundException',
 }
 
 export enum ValidatorTypes {
@@ -29,11 +30,15 @@ export enum ValidatorPatterns {
 export enum RouterPaths {
   signup = '/signup',
   signin = '/signin',
+  main = '/',
   registration = '/registration',
+  login = '/login',
 }
 
 export enum SnackBar {
-  success = 'Registration has been successful!',
-  error = 'Registration failed! ',
+  registrationOK = 'Registration has been successful!',
+  loginOK = 'Login has been successful!',
+  registrationError = 'Registration failed! ',
+  loginError = 'Login failed! ',
   closeAction = 'Close',
 }

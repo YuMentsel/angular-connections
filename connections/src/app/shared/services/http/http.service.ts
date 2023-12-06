@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
+import { AuthBody } from '../../models/shared.model';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +13,7 @@ export class HttpService {
     this.url = environment.apiUrl;
   }
 
-  post(apiRoute: string, body: unknown) {
+  post(apiRoute: string, body: AuthBody) {
     return this.http.post(`${this.url + apiRoute}`, body);
   }
 
@@ -20,7 +21,7 @@ export class HttpService {
     return this.http.get(`${this.url + apiRoute}`);
   }
 
-  put(apiRoute: string, body: unknown) {
+  put(apiRoute: string, body: AuthBody) {
     return this.http.put(`${this.url + apiRoute}`, body);
   }
 
