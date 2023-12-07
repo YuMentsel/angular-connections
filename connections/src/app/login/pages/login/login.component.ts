@@ -43,7 +43,10 @@ export class LoginComponent {
       .post(RouterPaths.login, this.form.value)
       .subscribe({
         next: (res) => {
-          console.log(res); // eslint-disable-line
+          localStorage.setItem(
+            'token',
+            JSON.stringify({ email: this.form.get('email')?.value, ...res }),
+          );
           this.snackBar.open(SnackBar.loginOK, SnackBar.closeAction, { duration: 2000 });
           this.router.navigate([RouterPaths.main]);
         },
