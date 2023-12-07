@@ -1,1 +1,49 @@
-<p>login works!</p>
+<div class="login">
+  <h3 class="login__title">Login</h3>
+  <form class="login__form" [formGroup]="form" (ngSubmit)="submitForm()">
+    <mat-form-field class="login__field" appearance="fill">
+      <mat-label>Email</mat-label>
+      <input
+        class="login__input"
+        type="text"
+        formControlName="email"
+        placeholder="example@gmail.com"
+        matInput
+        (input)="onFieldChange()"
+        autocomplete="off"
+      />
+      <mat-error>{{ getErrorMessage('email') }}</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="login__field" appearance="fill">
+      <mat-label>Password</mat-label>
+      <input
+        class="login__input"
+        type="password"
+        formControlName="password"
+        placeholder="********"
+        matInput
+        (input)="onFieldChange()"
+        autocomplete="off"
+      />
+      <mat-error>{{ getErrorMessage('password') }}</mat-error>
+    </mat-form-field>
+
+    <div class="login__button-wrapper">
+      <a class="login__link" routerLink="/signin">Click here to Registration</a>
+      <button
+        class="login__button"
+        type="submit"
+        mat-raised-button
+        color="primary"
+        [disabled]="form.invalid || loading || userNotFound"
+      >
+        {{ loading ? 'Submitting...' : 'Submit' }}
+      </button>
+    </div>
+
+    <div class="login__error-wrapper">
+      <div *ngIf="userNotFound">Your password is incorrect or this account doesn’t exist</div>
+    </div>
+  </form>
+</div>

@@ -47,7 +47,7 @@ export class RegistrationComponent {
       .post(RouterPaths.registration, this.form.value)
       .subscribe({
         next: () => {
-          this.snackBar.open(SnackBar.success, SnackBar.closeAction, { duration: 2000 });
+          this.snackBar.open(SnackBar.registrationOK, SnackBar.closeAction, { duration: 2000 });
           this.router.navigate([RouterPaths.signin]);
         },
         error: (res) => {
@@ -58,7 +58,7 @@ export class RegistrationComponent {
               this.takenEmails.push(email.value);
             }
           }
-          this.snackBar.open(SnackBar.error + res.error.message, SnackBar.closeAction, {
+          this.snackBar.open(SnackBar.registrationError + res.error.message, SnackBar.closeAction, {
             duration: 3500,
           });
         },
