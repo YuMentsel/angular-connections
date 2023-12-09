@@ -19,10 +19,10 @@ export class HttpService {
   }
 
   get<T>(apiRoute: string): Observable<T> {
-    return this.http.get<T>(`${this.url}/${apiRoute}`);
+    return this.http.get<T>(`${this.url + apiRoute}`);
   }
 
-  put(apiRoute: string, body: AuthBody) {
+  put<T>(apiRoute: string, body: T) {
     return this.http.put(`${this.url + apiRoute}`, body);
   }
 

@@ -8,6 +8,10 @@ export interface AuthBody {
   password: string;
 }
 
+export interface ProfileNameBody {
+  name: string;
+}
+
 export interface TokenHeaders {
   token: string;
   uid: string;
@@ -20,16 +24,12 @@ export interface LoginResponse {
 }
 
 export interface ProfileInfo {
-  email: {
-    S: 'string';
-  };
-  name: {
-    S: 'string';
-  };
-  uid: {
-    S: 'string';
-  };
-  createdAt: {
-    S: 'string';
-  };
+  email: ProfileField;
+  name: ProfileField;
+  uid: ProfileField;
+  createdAt: ProfileField;
+}
+
+export interface ProfileField {
+  S: string;
 }

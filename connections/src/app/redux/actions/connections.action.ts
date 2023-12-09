@@ -1,8 +1,17 @@
 import { createAction, props } from '@ngrx/store';
-import { ProfileInfo } from '../../shared/models/shared.model';
+import { ProfileField, ProfileInfo } from '../../shared/models/shared.model';
 
 export enum ActionTypes {
-  profileInfo = '[Profile] Add',
+  addProfileInfo = '[Profile] Add',
+  updateProfileInfo = '[Profile] Update',
 }
 
-export const addProfileInfo = createAction(ActionTypes.profileInfo, props<{ info: ProfileInfo }>());
+export const addProfileInfo = createAction(
+  ActionTypes.addProfileInfo,
+  props<{ info: ProfileInfo }>(),
+);
+
+export const updateProfileInfo = createAction(
+  ActionTypes.updateProfileInfo,
+  props<{ name: ProfileField }>(),
+);
