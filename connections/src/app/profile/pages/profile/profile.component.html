@@ -1,0 +1,14 @@
+<a routerLink="/">main</a>
+<div class="profile">
+  <h3 class="profile__title">Profile</h3>
+  <div class="profile__info" *ngIf="profileInfo$ | async as profileInfo; else loading">
+    <div class="profile__name">
+      <span>{{ profileInfo.name.S || '' }}</span>
+    </div>
+    <span>Email: {{ profileInfo.email.S || '' }}</span>
+    <span>UID: {{ profileInfo.uid.S || '' }}</span>
+    <span>Created at: {{ profileInfo.createdAt.S | date: 'medium' || '' }}</span>
+  </div>
+</div>
+
+<ng-template #loading>Loading...</ng-template>
