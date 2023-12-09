@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { LoginResponse } from '../../../shared/models/shared.model';
 import {
   ErrorTypes,
   RouterPaths,
@@ -40,7 +41,7 @@ export class LoginComponent {
     this.loading = true;
 
     this.httpService
-      .post(RouterPaths.login, this.form.value)
+      .post<LoginResponse>(RouterPaths.login, this.form.value)
       .subscribe({
         next: (res) => {
           localStorage.setItem(
@@ -54,9 +55,13 @@ export class LoginComponent {
           if (res.error.type === ErrorTypes.notFoundException) {
             this.userNotFound = true;
           }
-          this.snackBar.open(SnackBar.loginError + res.error.message, SnackBar.closeAction, {
-            duration: 3500,
-          });
+          this.snackBar.open(
+            SnackBar.loginError + (res.error.message || SnackBar.errorMessage),
+            SnackBar.closeAction,
+            {
+              duration: 3500,
+            },
+          );
         },
       })
       .add(() => {

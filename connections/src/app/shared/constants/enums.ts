@@ -30,6 +30,7 @@ export enum ValidatorPatterns {
 export enum RouterPaths {
   signup = '/signup',
   signin = '/signin',
+  profile = '/profile',
   main = '/',
   registration = '/registration',
   login = '/login',
@@ -38,7 +39,11 @@ export enum RouterPaths {
 export enum SnackBar {
   registrationOK = 'Registration has been successful!',
   loginOK = 'Login has been successful!',
+  nameUpdatingOK = 'Name updated successfully!',
   registrationError = 'Registration failed! ',
   loginError = 'Login failed! ',
+  updatingError = 'Updating failed! ',
+  loadingError = 'Loading failed! ',
+  errorMessage = 'Something went wrong!',
   closeAction = 'Close',
 }

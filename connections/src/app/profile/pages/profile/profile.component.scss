@@ -1,0 +1,68 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.profile {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  border-radius: 5px;
+  padding: 25px;
+  background: #f2f2f2;
+  overflow: hidden;
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    width: 332px;
+  }
+
+  &__button-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+    width: 332px;
+    min-height: 30px;
+  }
+
+  &__name {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 332px;
+    font-size: 24px;
+    margin: 20px 0 60px 0;
+    height: 110px;
+
+    span {
+      display: inline-block;
+      width: 300px;
+      margin: 0 16px;
+      overflow: hidden;
+      word-wrap: break-word;
+      hyphens: auto;
+      text-overflow: ellipsis;
+      line-height: 1.2;
+    }
+  }
+
+  &__name-wrapper {
+    display: flex;
+    align-items:  flex-end;
+    height: 56px;
+  }
+}

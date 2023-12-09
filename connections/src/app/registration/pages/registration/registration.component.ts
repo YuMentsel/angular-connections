@@ -44,7 +44,7 @@ export class RegistrationComponent {
     this.loading = true;
 
     this.httpService
-      .post(RouterPaths.registration, this.form.value)
+      .post<void>(RouterPaths.registration, this.form.value)
       .subscribe({
         next: () => {
           this.snackBar.open(SnackBar.registrationOK, SnackBar.closeAction, { duration: 2000 });
@@ -58,9 +58,13 @@ export class RegistrationComponent {
               this.takenEmails.push(email.value);
             }
           }
-          this.snackBar.open(SnackBar.registrationError + res.error.message, SnackBar.closeAction, {
-            duration: 3500,
-          });
+          this.snackBar.open(
+            SnackBar.registrationError + (res.error.message || SnackBar.errorMessage),
+            SnackBar.closeAction,
+            {
+              duration: 3500,
+            },
+          );
         },
       })
       .add(() => {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthBody } from '../../models/shared.model';
 
@@ -13,15 +14,15 @@ export class HttpService {
     this.url = environment.apiUrl;
   }
 
-  post(apiRoute: string, body: AuthBody) {
-    return this.http.post(`${this.url + apiRoute}`, body);
+  post<T>(apiRoute: string, body: AuthBody): Observable<T> {
+    return this.http.post<T>(`${this.url + apiRoute}`, body);
   }
 
-  get(apiRoute: string) {
-    return this.http.get(`${this.url + apiRoute}`);
+  get<T>(apiRoute: string): Observable<T> {
+    return this.http.get<T>(`${this.url + apiRoute}`);
   }
 
-  put(apiRoute: string, body: AuthBody) {
+  put<T>(apiRoute: string, body: T) {
     return this.http.put(`${this.url + apiRoute}`, body);
   }
 
