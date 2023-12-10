@@ -44,8 +44,7 @@ export class LoginComponent {
       .post<LoginResponse>(RouterPaths.login, this.form.value)
       .subscribe({
         next: (res) => {
-          localStorage.setItem(
-            'token',
+          this.authService.setToken(
             JSON.stringify({ email: this.form.get('email')?.value, ...res }),
           );
           this.snackBar.open(SnackBar.loginOK, SnackBar.closeAction, { duration: 2000 });

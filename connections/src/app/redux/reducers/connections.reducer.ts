@@ -1,6 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { ProfileInfo } from '../../shared/models/shared.model';
-import { addProfileInfo, updateProfileInfo } from '../actions/connections.action';
+import {
+  addProfileInfo,
+  deleteProfileInfo,
+  updateProfileInfo,
+} from '../actions/connections.action';
 import { ConnectionsState } from '../models/state.model';
 
 export const initialState: ConnectionsState = {
@@ -21,6 +25,13 @@ export const connectionsReducer = createReducer(
     (state, { name }): ConnectionsState => ({
       ...state,
       profileInfo: { ...state.profileInfo, name } as ProfileInfo,
+    }),
+  ),
+  on(
+    deleteProfileInfo,
+    (state): ConnectionsState => ({
+      ...state,
+      profileInfo: null,
     }),
   ),
 );

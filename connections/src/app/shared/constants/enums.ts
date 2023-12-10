@@ -34,14 +34,17 @@ export enum RouterPaths {
   main = '/',
   registration = '/registration',
   login = '/login',
+  logout = '/logout',
 }
 
 export enum SnackBar {
   registrationOK = 'Registration has been successful!',
   loginOK = 'Login has been successful!',
+  logoutOK = 'Logout has been successful!',
   nameUpdatingOK = 'Name updated successfully!',
   registrationError = 'Registration failed! ',
   loginError = 'Login failed! ',
+  logoutError = 'Logout failed! ',
   updatingError = 'Updating failed! ',
   loadingError = 'Loading failed! ',
   errorMessage = 'Something went wrong!',
