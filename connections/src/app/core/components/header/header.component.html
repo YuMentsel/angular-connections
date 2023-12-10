@@ -1,0 +1,23 @@
+<header *ngIf="isAuthenticated()" class="header">
+  <div class="header__container container">
+    <a class="header__logo" routerLink="/">Connections</a>
+
+    <nav class="header__nav">
+      <ul>
+        <li><a routerLink="/" routerLinkActive="active">Main</a></li>
+        <li><a routerLink="/profile" routerLinkActive="active">Profile</a></li>
+      </ul>
+    </nav>
+
+    <button
+      class="header__button"
+      type="submit"
+      mat-raised-button
+      color="primary"
+      (click)="logout()"
+      [disabled]="loading"
+    >
+      Logout
+    </button>
+  </div>
+</header>

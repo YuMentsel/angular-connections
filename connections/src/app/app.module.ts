@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpHeadersInterceptor } from './shared/interceptor/http.interceptor';
 import { connectionsReducer } from './redux/reducers/connections.reducer';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { connectionsReducer } from './redux/reducers/connections.reducer';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    CoreModule,
     HttpClientModule,
     StoreModule.forRoot({ connections: connectionsReducer }),
   ],
