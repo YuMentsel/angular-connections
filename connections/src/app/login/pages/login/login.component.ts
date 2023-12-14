@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { LoginResponse } from '../../../shared/models/shared.model';
+import { AuthBody, LoginResponse } from '../../../shared/models/shared.model';
 import {
   ErrorTypes,
   RouterPaths,
@@ -41,7 +41,7 @@ export class LoginComponent {
     this.loading = true;
 
     this.httpService
-      .post<LoginResponse>(RouterPaths.login, this.form.value)
+      .post<LoginResponse, AuthBody>(RouterPaths.login, this.form.value)
       .subscribe({
         next: (res) => {
           this.authService.setToken(

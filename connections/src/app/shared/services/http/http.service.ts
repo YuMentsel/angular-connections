@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { AuthBody } from '../../models/shared.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +13,7 @@ export class HttpService {
     this.url = environment.apiUrl;
   }
 
-  post<T>(apiRoute: string, body: AuthBody): Observable<T> {
+  post<T, K>(apiRoute: string, body: K): Observable<T> {
     return this.http.post<T>(`${this.url + apiRoute}`, body);
   }
 

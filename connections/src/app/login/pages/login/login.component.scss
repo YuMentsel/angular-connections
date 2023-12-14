@@ -5,13 +5,24 @@
   height: 100%;
 }
 
+:host-context(.dark-theme) {
+  .login {
+    border: #0a0a0a solid 1px;
+    box-shadow: 5px 5px 10px #0a0a0a;
+    &__link {
+      color: #7b1fa2;
+    }
+  }
+}
+
 .login {
   position: relative;
   width: 380px;
   border-radius: 5px;
   padding: 25px;
   padding-bottom: 35px;
-  background: #f2f2f2;
+  border: #f2f2f2 solid 1px;
+  box-shadow: 5px 5px 20px #dadada;
   overflow: hidden;
 
   &__form {
@@ -40,6 +51,7 @@
 
   &__link {
     margin-left: 15px;
+    color: #2979ff;
   }
 
   &__error-wrapper {

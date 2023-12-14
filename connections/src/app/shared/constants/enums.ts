@@ -1,17 +1,25 @@
 export enum RegistrationFormErrorMessages {
   name = 'Please enter a first name',
   nameMax = 'The name is invalid, maximum 40 characters',
-  nameValid = 'The name is invalid, allowed only letters or spaces',
+  nameValid = 'The name is invalid, allowed letters or spaces',
+  group = 'Please enter a group name',
+  groupValid = 'The name is invalid, allowed letters, digits or spaces',
+  groupMax = 'The name is invalid, maximum 30 characters',
   email = 'Please enter a email',
   emailValid = 'The email is invalid',
   emailTaken = 'The email is taken',
   password = 'Please enter a password',
-  passwordValid = `Your password isn't strong enough (minimum 8 symbols that include at least 1 capital letter, at least 1 digit and at least 1 special symbol - !@#$%^&*)`,
+  passwordValid = `Password isn't strong enough (min 8 symbols that include at least 1 capital letter, at least 1 digit and at least 1 special symbol - !@#$%^&*)`,
 }
 
 export enum ErrorTypes {
   primaryDuplicationException = 'PrimaryDuplicationException',
   notFoundException = 'NotFoundException',
+}
+
+export enum Themes {
+  light = 'light-theme',
+  dark = 'dark-theme',
 }
 
 export enum ValidatorTypes {
@@ -23,7 +31,8 @@ export enum ValidatorTypes {
 }
 
 export enum ValidatorPatterns {
-  name = '^[a-zA-Zs ]{1,40}$',
+  name = '^[a-zA-Zа-яА-Я ]*$',
+  nameWithDigits = '^[a-zA-Zа-яА-Я0-9 ]*$',
   password = `(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$`,
 }
 
@@ -35,6 +44,17 @@ export enum RouterPaths {
   registration = '/registration',
   login = '/login',
   logout = '/logout',
+  group = '/group',
+}
+
+export enum Endpoints {
+  profile = '/profile',
+  registration = '/registration',
+  login = '/login',
+  logout = '/logout',
+  groupsList = '/groups/list',
+  createGroup = '/groups/create',
+  deleteGroup = '/groups/delete?groupID=',
 }
 
 export enum SnackBar {
@@ -42,10 +62,14 @@ export enum SnackBar {
   loginOK = 'Login has been successful!',
   logoutOK = 'Logout has been successful!',
   nameUpdatingOK = 'Name updated successfully!',
+  groupCreatingOK = 'Group created successfully!',
+  groupRemovingOK = 'Group removed successfully!',
   registrationError = 'Registration failed! ',
   loginError = 'Login failed! ',
   logoutError = 'Logout failed! ',
   updatingError = 'Updating failed! ',
+  creatingError = 'Creating failed! ',
+  removingError = 'Removing failed! ',
   loadingError = 'Loading failed! ',
   errorMessage = 'Something went wrong!',
   closeAction = 'Close',

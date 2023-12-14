@@ -1,0 +1,18 @@
+<div class="create-form">
+  <form [formGroup]="form">
+    <mat-form-field class="create-form__field">
+      <mat-label>Group Name</mat-label>
+      <input matInput formControlName="group" />
+      <mat-error>{{ getErrorMessage('group') }}</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="createGroup()"
+      [disabled]="form.invalid || loading"
+    >
+      Create
+    </button>
+  </form>
+</div>

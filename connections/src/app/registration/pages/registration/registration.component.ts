@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
 import {
   ErrorTypes,
@@ -44,7 +45,7 @@ export class RegistrationComponent {
     this.loading = true;
 
     this.httpService
-      .post<void>(RouterPaths.registration, this.form.value)
+      .post<void, AuthBody>(RouterPaths.registration, this.form.value)
       .subscribe({
         next: () => {
           this.snackBar.open(SnackBar.registrationOK, SnackBar.closeAction, { duration: 2000 });

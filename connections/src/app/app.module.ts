@@ -6,7 +6,8 @@ import { StoreModule } from '@ngrx/store';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpHeadersInterceptor } from './shared/interceptor/http.interceptor';
-import { connectionsReducer } from './redux/reducers/connections.reducer';
+import { profileReducer } from './redux/reducers/profile.reducer';
+import { groupsReducer } from './redux/reducers/groups.reducer';
 import { CoreModule } from './core/core.module';
 
 @NgModule({
@@ -17,7 +18,7 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     CoreModule,
     HttpClientModule,
-    StoreModule.forRoot({ connections: connectionsReducer }),
+    StoreModule.forRoot({ profile: profileReducer, groups: groupsReducer }),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: HttpHeadersInterceptor, multi: true }],
   bootstrap: [AppComponent],

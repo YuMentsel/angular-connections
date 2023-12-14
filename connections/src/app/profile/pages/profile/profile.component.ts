@@ -7,8 +7,8 @@ import { AuthService } from '../../../shared/services/auth/auth.service';
 import { RouterPaths, SnackBar, ValidatorPatterns } from '../../../shared/constants/enums';
 import { ProfileInfo, ProfileNameBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
-import { addProfileInfo, updateProfileInfo } from '../../../redux/actions/connections.action';
-import { selectProfileInfo } from '../../../redux/selectors/connections.selector';
+import { addProfileInfo, updateProfileInfo } from '../../../redux/actions/profile.action';
+import { selectProfileInfo } from '../../../redux/selectors/profile.selector';
 
 @Component({
   selector: 'app-profile',
