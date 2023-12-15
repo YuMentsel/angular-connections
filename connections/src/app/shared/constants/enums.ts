@@ -1,4 +1,4 @@
-export enum RegistrationFormErrorMessages {
+export enum FormErrorMessages {
   name = 'Please enter a first name',
   nameMax = 'The name is invalid, maximum 40 characters',
   nameValid = 'The name is invalid, allowed letters or spaces',
@@ -34,6 +34,12 @@ export enum ValidatorPatterns {
   name = '^[a-zA-Zа-яА-Я ]*$',
   nameWithDigits = '^[a-zA-Zа-яА-Я0-9 ]*$',
   password = `(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$`,
+}
+
+export enum Confirmation {
+  deleteGroupMessage = 'Are you sure you want to delete this group?',
+  delete = 'Delete',
+  cancel = 'Cancel',
 }
 
 export enum RouterPaths {

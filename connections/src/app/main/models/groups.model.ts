@@ -28,3 +28,12 @@ export interface GroupName {
 export interface GroupId {
   groupID: string;
 }
+
+export interface ConfirmDialogData {
+  message: string;
+  buttonText: {
+    yes: string;
+    cancel: string;
+  };
+  id: string;
+}

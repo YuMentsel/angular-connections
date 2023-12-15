@@ -59,4 +59,9 @@
   &:hover {
     transform: scale(1.05);
   }
+
+  &__link {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }

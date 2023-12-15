@@ -18,15 +18,14 @@
 
   <ul class="groups__wrapper" *ngIf="groups$ | async as groups">
     <li class="group" *ngFor="let group of groups" (click)="openGroupDialog(group.id.S)">
-      <a [routerLink]="'/group/' + group.id">{{ group.name.S }}</a>
-      <span *ngIf="group.createdBy.S === 'ba4mn6a70jq'">
+      <a class="group__link" [routerLink]="'/group/' + group.id">{{ group.name.S }}</a>
+      <span *ngIf="group.createdBy.S === uid">
         <button
           mat-raised-button
           color="accent"
           (click)="deleteGroup($event, group.id.S)"
-          [disabled]="loadingDelete"
         >
-          Delete
+          <mat-icon>delete_forever</mat-icon>Delete
         </button>
       </span>
     </li>

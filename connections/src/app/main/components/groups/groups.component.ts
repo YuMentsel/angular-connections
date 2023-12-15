@@ -3,15 +3,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { Observable, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { SnackBar, Endpoints, RouterPaths } from '../../../shared/constants/enums';
+import { SnackBar, Endpoints, RouterPaths, Confirmation } from '../../../shared/constants/enums';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 import { selectGroups } from '../../../redux/selectors/group.selector';
 import { CountdownService } from '../../../shared/services/countdown/countdown.service';
 import { delay } from '../../../shared/constants/constants';
-import { addGroups, deleteGroup } from '../../../redux/actions/groups.action';
+import { addGroups } from '../../../redux/actions/groups.action';
 import { CreateGroupFormComponent } from '../create-group-form/create-group-form.component';
 import { Group, Groups } from '../../models/groups.model';
+import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-groups',
@@ -21,11 +22,11 @@ import { Group, Groups } from '../../models/groups.model';
 export class GroupsComponent implements OnInit {
   loading = false;
 
-  loadingDelete = false;
-
   groups$!: Observable<Group[]>;
 
   updateCountdown = 0;
+
+  uid = '';
 
   constructor(
     private httpService: HttpService,
@@ -46,6 +47,9 @@ export class GroupsComponent implements OnInit {
     this.countdownService.countdown$.subscribe((remainingTime) => {
       this.updateCountdown = remainingTime;
     });
+
+    const token = localStorage.getItem('token');
+    this.uid = token ? JSON.parse(token).uid : '';
   }
 
   loadGroups(click?: boolean): void {
@@ -78,21 +82,17 @@ export class GroupsComponent implements OnInit {
   }
 
   deleteGroup(event: Event, groupId: string): void {
-    this.loadingDelete = true;
     event.stopPropagation();
-    this.httpService
-      .delete(`${Endpoints.deleteGroup}${groupId}`)
-      .subscribe({
-        next: () => {
-          this.store.dispatch(deleteGroup({ groupId }));
-          this.snackBar.openOK(SnackBar.groupRemovingOK);
+
+    this.dialog.open(ConfirmationComponent, {
+      data: {
+        message: Confirmation.deleteGroupMessage,
+        buttonText: {
+          yes: Confirmation.delete,
+          cancel: Confirmation.cancel,
         },
-        error: ({ error }) => {
-          this.snackBar.openError(SnackBar.removingError, error.message);
-        },
-      })
-      .add(() => {
-        this.loadingDelete = false;
-      });
+        id: groupId,
+      },
+    });
   }
 }
