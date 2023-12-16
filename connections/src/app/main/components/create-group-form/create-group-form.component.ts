@@ -55,7 +55,7 @@ export class CreateGroupFormComponent implements OnInit {
           this.dialogRef.close();
         },
         error: ({ error }) => {
-          this.snackBar.openError(SnackBar.loadingError, error.message);
+          this.snackBar.openError(SnackBar.creatingError, error.message);
         },
       })
       .add(() => {

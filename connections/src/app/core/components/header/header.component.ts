@@ -1,11 +1,11 @@
 import { Component, Renderer2, RendererFactory2 } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { deleteProfileInfo } from '../../../redux/actions/profile.action';
 import { Endpoints, RouterPaths, SnackBar, Themes } from '../../../shared/constants/enums';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { HttpService } from '../../../shared/services/http/http.service';
+import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +23,7 @@ export class HeaderComponent {
     private router: Router,
     private authService: AuthService,
     private httpService: HttpService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private store: Store,
     rendererFactory: RendererFactory2,
   ) {
@@ -41,17 +41,13 @@ export class HeaderComponent {
       .delete(Endpoints.logout)
       .subscribe({
         next: () => {
-          this.snackBar.open(SnackBar.logoutOK, SnackBar.closeAction, { duration: 2000 });
+          this.snackBar.openOK(SnackBar.logoutOK);
           this.store.dispatch(deleteProfileInfo());
           this.authService.logout();
           this.router.navigate([RouterPaths.signin]);
         },
-        error: (res) => {
-          this.snackBar.open(
-            SnackBar.logoutError + (res.error.message || SnackBar.errorMessage),
-            SnackBar.closeAction,
-            { duration: 3500 },
-          );
+        error: ({ error }) => {
+          this.snackBar.openError(SnackBar.logoutError, error.message);
         },
       })
       .add(() => {
