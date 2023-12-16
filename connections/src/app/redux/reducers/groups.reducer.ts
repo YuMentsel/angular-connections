@@ -1,9 +1,10 @@
 import { createReducer, on } from '@ngrx/store';
 import { GroupsState } from '../models/groupsState.model';
-import { addGroup, addGroups, deleteGroup } from '../actions/groups.action';
+import { updateCountdown, addGroup, addGroups, deleteGroup } from '../actions/groups.action';
 
 export const initialState: GroupsState = {
   groups: [],
+  countdown: { groups: 0, people: 0 },
 };
 
 export const groupsReducer = createReducer(
@@ -27,6 +28,13 @@ export const groupsReducer = createReducer(
     (state, { groupId }): GroupsState => ({
       ...state,
       groups: state.groups.filter((group) => group.id.S !== groupId),
+    }),
+  ),
+  on(
+    updateCountdown,
+    (state, action): GroupsState => ({
+      ...state,
+      countdown: { ...state.countdown, ...action },
     }),
   ),
 );

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, take } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth.service';
-import { RouterPaths, SnackBar, ValidatorPatterns } from '../../../shared/constants/enums';
+import { Endpoints, SnackBar, ValidatorPatterns } from '../../../shared/constants/enums';
 import { ProfileInfo, ProfileNameBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { addProfileInfo, updateProfileInfo } from '../../../redux/actions/profile.action';
@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
     this.profileInfo$.pipe(take(1)).subscribe((profileInfo) => {
       if (profileInfo === null) {
         this.httpService
-          .get<ProfileInfo>(RouterPaths.profile)
+          .get<ProfileInfo>(Endpoints.profile)
           .pipe(take(1))
           .subscribe({
             next: (info) => {
@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
     this.isUpdating = true;
 
     this.httpService
-      .put<ProfileNameBody>(RouterPaths.profile, { name: this.form.value.name })
+      .put<ProfileNameBody>(Endpoints.profile, { name: this.form.value.name })
       .subscribe({
         next: () => {
           this.isEditing = false;

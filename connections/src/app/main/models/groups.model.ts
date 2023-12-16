@@ -1,9 +1,9 @@
 import { SField } from '../../shared/models/shared.model';
 
-export interface Groups {
+export interface Response<T> {
   $metadata: string;
   Count: number;
-  Items: Group[];
+  Items: T[];
   ScannedCount: number;
 }
 

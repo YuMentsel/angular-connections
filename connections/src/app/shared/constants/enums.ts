@@ -42,6 +42,11 @@ export enum Confirmation {
   cancel = 'Cancel',
 }
 
+export enum Countdown {
+  groups = 'groups',
+  people = 'people',
+}
+
 export enum RouterPaths {
   signup = '/signup',
   signin = '/signin',
@@ -49,8 +54,8 @@ export enum RouterPaths {
   main = '/',
   registration = '/registration',
   login = '/login',
-  logout = '/logout',
   group = '/group',
+  conversation = '/conversation',
 }
 
 export enum Endpoints {
@@ -61,6 +66,7 @@ export enum Endpoints {
   groupsList = '/groups/list',
   createGroup = '/groups/create',
   deleteGroup = '/groups/delete?groupID=',
+  users = '/users',
 }
 
 export enum SnackBar {

@@ -1,16 +1,14 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, timer } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { timer } from 'rxjs';
 import { takeWhile, map } from 'rxjs/operators';
+import { updateCountdown } from '../../../redux/actions/groups.action';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CountdownService {
-  private countdownSubject = new BehaviorSubject<number>(0);
+  constructor(private store: Store) {}
 
-  countdown$: Observable<number> = this.countdownSubject.asObservable();
-
-  startCountdown(duration: number): void {
+  startCountdown(duration: number, countdown: string): void {
     timer(0, 1000)
       .pipe(
         map((tick) => duration - tick),
@@ -18,7 +16,7 @@ export class CountdownService {
       )
 
       .subscribe((remainingTime) => {
-        this.countdownSubject.next(remainingTime);
+        this.store.dispatch(updateCountdown({ [countdown]: remainingTime }));
       });
   }
 }

@@ -3,7 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { deleteProfileInfo } from '../../../redux/actions/profile.action';
-import { RouterPaths, SnackBar, Themes } from '../../../shared/constants/enums';
+import { Endpoints, RouterPaths, SnackBar, Themes } from '../../../shared/constants/enums';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { HttpService } from '../../../shared/services/http/http.service';
 
@@ -38,7 +38,7 @@ export class HeaderComponent {
     this.loading = true;
 
     this.httpService
-      .delete(RouterPaths.logout)
+      .delete(Endpoints.logout)
       .subscribe({
         next: () => {
           this.snackBar.open(SnackBar.logoutOK, SnackBar.closeAction, { duration: 2000 });

@@ -24,6 +24,11 @@ const routes: Routes = [
     path: 'group/:id',
     loadChildren: () => import('./dialog/dialog.module').then((m) => m.DialogModule),
   },
+  {
+    path: 'conversation/:id',
+    loadChildren: () =>
+      import('./conversation/conversation.module').then((m) => m.ConversationModule),
+  },
 ];
 
 @NgModule({

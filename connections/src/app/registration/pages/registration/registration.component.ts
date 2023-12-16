@@ -5,6 +5,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
 import {
+  Endpoints,
   ErrorTypes,
   RouterPaths,
   SnackBar,
@@ -45,7 +46,7 @@ export class RegistrationComponent {
     this.loading = true;
 
     this.httpService
-      .post<void, AuthBody>(RouterPaths.registration, this.form.value)
+      .post<void, AuthBody>(Endpoints.registration, this.form.value)
       .subscribe({
         next: () => {
           this.snackBar.open(SnackBar.registrationOK, SnackBar.closeAction, { duration: 2000 });

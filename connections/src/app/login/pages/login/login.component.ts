@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthBody, LoginResponse } from '../../../shared/models/shared.model';
 import {
+  Endpoints,
   ErrorTypes,
   RouterPaths,
   SnackBar,
@@ -41,7 +42,7 @@ export class LoginComponent {
     this.loading = true;
 
     this.httpService
-      .post<LoginResponse, AuthBody>(RouterPaths.login, this.form.value)
+      .post<LoginResponse, AuthBody>(Endpoints.login, this.form.value)
       .subscribe({
         next: (res) => {
           this.authService.setToken(

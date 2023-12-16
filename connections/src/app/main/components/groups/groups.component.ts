@@ -1,40 +1,59 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Observable, take } from 'rxjs';
+import { Observable, Subscription, of, take } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
-import { SnackBar, Endpoints, RouterPaths, Confirmation } from '../../../shared/constants/enums';
+import {
+  SnackBar,
+  Endpoints,
+  RouterPaths,
+  Confirmation,
+  Countdown,
+} from '../../../shared/constants/enums';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
-import { selectGroups } from '../../../redux/selectors/group.selector';
+import { selectGroupCountdown, selectGroups } from '../../../redux/selectors/group.selector';
 import { CountdownService } from '../../../shared/services/countdown/countdown.service';
 import { delay } from '../../../shared/constants/constants';
 import { addGroups } from '../../../redux/actions/groups.action';
 import { CreateGroupFormComponent } from '../create-group-form/create-group-form.component';
-import { Group, Groups } from '../../models/groups.model';
+import { Group, Response } from '../../models/groups.model';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
   selector: 'app-groups',
+  providers: [CountdownService],
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GroupsComponent implements OnInit {
+export class GroupsComponent implements OnInit, OnDestroy {
   loading = false;
 
   groups$!: Observable<Group[]>;
 
-  updateCountdown = 0;
+  remainingTime$: Observable<number> = of(0);
+
+  disabled = false;
+
+  subscription!: Subscription;
 
   uid = '';
 
   constructor(
+    protected countdownService: CountdownService,
     private httpService: HttpService,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
     private store: Store,
-    private countdownService: CountdownService,
     private router: Router,
+    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -44,24 +63,30 @@ export class GroupsComponent implements OnInit {
       if (!groups.length) this.loadGroups();
     });
 
-    this.countdownService.countdown$.subscribe((remainingTime) => {
-      this.updateCountdown = remainingTime;
+    this.remainingTime$ = this.store.select(selectGroupCountdown);
+
+    this.subscription = this.remainingTime$.subscribe((time) => {
+      this.disabled = time > 0;
     });
 
     const token = localStorage.getItem('token');
     this.uid = token ? JSON.parse(token).uid : '';
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   loadGroups(click?: boolean): void {
     this.loading = true;
     this.httpService
-      .get<Groups>(Endpoints.groupsList)
+      .get<Response<Group>>(Endpoints.groupsList)
       .subscribe({
         next: (groups) => {
           this.store.dispatch(addGroups({ groups: groups.Items }));
 
           if (click) {
-            this.countdownService.startCountdown(delay);
+            this.countdownService.startCountdown(delay, Countdown.groups);
           }
         },
         error: ({ error }) => {
