@@ -24,12 +24,12 @@ export interface LoginResponse {
 }
 
 export interface ProfileInfo {
-  email: ProfileField;
-  name: ProfileField;
-  uid: ProfileField;
-  createdAt: ProfileField;
+  email: SField;
+  name: SField;
+  uid: SField;
+  createdAt: SField;
 }
 
-export interface ProfileField {
+export interface SField {
   S: string;
 }

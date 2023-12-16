@@ -1,35 +1,31 @@
 import { createReducer, on } from '@ngrx/store';
 import { ProfileInfo } from '../../shared/models/shared.model';
-import {
-  addProfileInfo,
-  deleteProfileInfo,
-  updateProfileInfo,
-} from '../actions/connections.action';
-import { ConnectionsState } from '../models/state.model';
+import { addProfileInfo, deleteProfileInfo, updateProfileInfo } from '../actions/profile.action';
+import { ProfileState } from '../models/profileState.model';
 
-export const initialState: ConnectionsState = {
+export const initialState: ProfileState = {
   profileInfo: null,
 };
 
-export const connectionsReducer = createReducer(
+export const profileReducer = createReducer(
   initialState,
   on(
     addProfileInfo,
-    (state, { info }): ConnectionsState => ({
+    (state, { info }): ProfileState => ({
       ...state,
       profileInfo: { ...info },
     }),
   ),
   on(
     updateProfileInfo,
-    (state, { name }): ConnectionsState => ({
+    (state, { name }): ProfileState => ({
       ...state,
       profileInfo: { ...state.profileInfo, name } as ProfileInfo,
     }),
   ),
   on(
     deleteProfileInfo,
-    (state): ConnectionsState => ({
+    (state): ProfileState => ({
       ...state,
       profileInfo: null,
     }),

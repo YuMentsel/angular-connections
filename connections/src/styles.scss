@@ -1,10 +1,26 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
+$custom-typography: mat.define-typography-config(
+  $font-family: 'Montserrat, sans-serif',
+);
+
 $primary: mat.define-palette(mat.$blue-palette, A400);
-$accent: mat.define-palette(mat.$green-palette, 500);
+$accent: mat.define-palette(mat.$green-palette, 600);
 $warn: mat.define-palette(mat.$red-palette, 400);
-$theme: mat.define-light-theme(
+
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+      warn: $warn,
+    ),
+    typography: $custom-typography,
+  )
+);
+
+$dark-theme: mat.define-dark-theme(
   (
     color: (
       primary: $primary,
@@ -13,7 +29,14 @@ $theme: mat.define-light-theme(
     ),
   )
 );
-@include mat.all-component-themes($theme);
+
+@include mat.all-component-themes($light-theme);
+
+.dark-theme {
+  @include mat.all-component-colors($dark-theme);
+}
+
+$purple: #7cb342;
 
 *,
 *::after,
@@ -29,8 +52,12 @@ body {
 }
 
 body {
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
-  color: #4f4f4f;
+  font-family: 'Montserrat', sans-serif;
+  color: #6d6d6d;
+  &.dark-theme {
+    background-color: #181818;
+    color: #ffffff;
+  }
 }
 
 .container {
@@ -45,26 +72,32 @@ body {
 
 button {
   width: 120px;
-  height: 32px;
-  border-radius: 5px;
-  border: none;
-  background-color: #2979ff;
-  color: #ffffff;
-  font-size: 14px;
-  cursor: pointer;
-  &:disabled {
-    background-color: #c5c5c5;
-    color: #575757;
-    cursor: auto;
+  .dark-theme & {
+    color: #000000 !important;
+    font-weight: 600 !important;
   }
 }
 
 a {
   text-decoration: none;
-  color: #2979ff;
+  color: #6d6d6d;
   cursor: pointer;
+
+  .dark-theme & {
+    color: #8d8d8d;
+  }
+
   &:disabled {
-    color: #575757;
+    color: rgba(109, 109, 109, 0.65);
     cursor: auto;
   }
+}
+
+h3 {
+  font-weight: 500;
+  margin-bottom: 25px;
+}
+
+ul {
+  list-style: none;
 }

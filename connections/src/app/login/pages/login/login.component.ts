@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { LoginResponse } from '../../../shared/models/shared.model';
+import { AuthBody, LoginResponse } from '../../../shared/models/shared.model';
 import {
+  Endpoints,
   ErrorTypes,
   RouterPaths,
   SnackBar,
@@ -11,6 +11,7 @@ import {
 } from '../../../shared/constants/enums';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { HttpService } from '../../../shared/services/http/http.service';
+import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,7 @@ export class LoginComponent {
     private router: Router,
     private authService: AuthService,
     private httpService: HttpService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
   ) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -41,26 +42,20 @@ export class LoginComponent {
     this.loading = true;
 
     this.httpService
-      .post<LoginResponse>(RouterPaths.login, this.form.value)
+      .post<LoginResponse, AuthBody>(Endpoints.login, this.form.value)
       .subscribe({
         next: (res) => {
           this.authService.setToken(
             JSON.stringify({ email: this.form.get('email')?.value, ...res }),
           );
-          this.snackBar.open(SnackBar.loginOK, SnackBar.closeAction, { duration: 2000 });
+          this.snackBar.openOK(SnackBar.loginOK);
           this.router.navigate([RouterPaths.main]);
         },
-        error: (res) => {
-          if (res.error.type === ErrorTypes.notFoundException) {
+        error: ({ error }) => {
+          if (error.type === ErrorTypes.notFoundException) {
             this.userNotFound = true;
           }
-          this.snackBar.open(
-            SnackBar.loginError + (res.error.message || SnackBar.errorMessage),
-            SnackBar.closeAction,
-            {
-              duration: 3500,
-            },
-          );
+          this.snackBar.openError(SnackBar.loginError, error.message);
         },
       })
       .add(() => {

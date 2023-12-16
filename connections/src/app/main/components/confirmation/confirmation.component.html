@@ -1,0 +1,14 @@
+<div class="confirmation">
+  <h3>Confirmation</h3>
+  <mat-dialog-content>
+    <p>{{ loading ? 'Deleting...' : data.message }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions class="confirmation__button-wrapper">
+    <button mat-raised-button color="accent" (click)="cancel()" [disabled]="loading">
+      {{ data.buttonText.cancel }}
+    </button>
+    <button mat-raised-button color="warn" (click)="confirm()" [disabled]="loading">
+      {{ data.buttonText.yes }}
+    </button>
+  </mat-dialog-actions>
+</div>

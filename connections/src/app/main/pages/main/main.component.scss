@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: calc(100% - 92px);
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+  }
+}

@@ -5,12 +5,21 @@
   height: 100%;
 }
 
+:host-context(.dark-theme) .registration {
+  border: #0a0a0a solid 1px;
+  box-shadow: 5px 5px 20px #0a0a0a;
+  &__link {
+    color: #7cb342;
+  }
+}
+
 .registration {
   width: 380px;
   border-radius: 5px;
   padding: 25px;
   padding-bottom: 35px;
-  background: #f2f2f2;
+  border: #f2f2f2 solid 1px;
+  box-shadow: 5px 5px 20px #dadada;
 
   &__form {
     display: flex;
@@ -38,5 +47,6 @@
 
   &__link {
     margin-left: 15px;
+    color: #2979ff;
   }
 }

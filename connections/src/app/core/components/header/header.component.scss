@@ -1,9 +1,13 @@
+:host-context(.dark-theme) .header__logo {
+  color: #ffffff;
+}
+
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 10px;
+  padding: 30px;
   min-height: 40px;
 
   &__container {
@@ -13,11 +17,11 @@
 
   &__logo {
     font-size: 36px;
+    color: #2979ff;
   }
 
   nav ul {
     display: flex;
     gap: 30px;
-    list-style: none;
   }
 }

@@ -1,0 +1,18 @@
+.create-form {
+  padding: 25px;
+  width: 380px;
+  height: 230px;
+  form {
+    width: 100%;
+  }
+
+  &__field {
+    width: 100%;
+  }
+
+  button {
+    position: absolute;
+    bottom: 25px;
+    right: 25px;
+  }
+}

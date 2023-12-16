@@ -1,5 +1,5 @@
 import { ProfileInfo } from '../../shared/models/shared.model';
 
-export interface ConnectionsState {
+export interface ProfileState {
   profileInfo: ProfileInfo | null;
 }

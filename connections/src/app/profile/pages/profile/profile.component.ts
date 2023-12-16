@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Observable, take } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../../shared/services/auth/auth.service';
-import { RouterPaths, SnackBar, ValidatorPatterns } from '../../../shared/constants/enums';
+import { Endpoints, SnackBar, ValidatorPatterns } from '../../../shared/constants/enums';
 import { ProfileInfo, ProfileNameBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
-import { addProfileInfo, updateProfileInfo } from '../../../redux/actions/connections.action';
-import { selectProfileInfo } from '../../../redux/selectors/connections.selector';
+import { addProfileInfo, updateProfileInfo } from '../../../redux/actions/profile.action';
+import { selectProfileInfo } from '../../../redux/selectors/profile.selector';
+import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-profile',
@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private httpService: HttpService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
     private store: Store,
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -38,20 +38,14 @@ export class ProfileComponent implements OnInit {
     this.profileInfo$.pipe(take(1)).subscribe((profileInfo) => {
       if (profileInfo === null) {
         this.httpService
-          .get<ProfileInfo>(RouterPaths.profile)
+          .get<ProfileInfo>(Endpoints.profile)
           .pipe(take(1))
           .subscribe({
             next: (info) => {
               this.store.dispatch(addProfileInfo({ info }));
             },
-            error: (res) => {
-              this.snackBar.open(
-                SnackBar.loadingError + (res.error.message || SnackBar.errorMessage),
-                SnackBar.closeAction,
-                {
-                  duration: 3500,
-                },
-              );
+            error: ({ error }) => {
+              this.snackBar.openError(SnackBar.loadingError, error.message);
             },
           });
       }
@@ -73,33 +67,26 @@ export class ProfileComponent implements OnInit {
     this.isEditing = true;
   }
 
-  cancelEditing(): void {
+  cancelEditing(event: Event): void {
     this.isEditing = false;
     this.initForm(this.form.value);
+    event.preventDefault();
   }
 
   saveChanges(): void {
     this.isUpdating = true;
 
     this.httpService
-      .put<ProfileNameBody>(RouterPaths.profile, { name: this.form.value.name })
+      .put<ProfileNameBody>(Endpoints.profile, { name: this.form.value.name })
       .subscribe({
         next: () => {
           this.isEditing = false;
           this.store.dispatch(updateProfileInfo({ name: { S: this.form.value.name } }));
 
-          this.snackBar.open(SnackBar.nameUpdatingOK, SnackBar.closeAction, {
-            duration: 3500,
-          });
+          this.snackBar.openOK(SnackBar.nameUpdatingOK);
         },
-        error: (res) => {
-          this.snackBar.open(
-            SnackBar.updatingError + (res.error.message || SnackBar.errorMessage),
-            SnackBar.closeAction,
-            {
-              duration: 3500,
-            },
-          );
+        error: ({ error }) => {
+          this.snackBar.openError(SnackBar.updatingError, error.message);
         },
       })
       .add(() => {

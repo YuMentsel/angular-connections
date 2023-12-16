@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
 import {
+  Endpoints,
   ErrorTypes,
   RouterPaths,
   SnackBar,
   ValidatorPatterns,
 } from '../../../shared/constants/enums';
 import { AuthService } from '../../../shared/services/auth/auth.service';
+import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 
 @Component({
   selector: 'app-registration',
@@ -28,7 +30,7 @@ export class RegistrationComponent {
     private router: Router,
     private authService: AuthService,
     private httpService: HttpService,
-    private snackBar: MatSnackBar,
+    private snackBar: SnackBarService,
   ) {
     this.form = this.formBuilder.group({
       name: [
@@ -44,27 +46,21 @@ export class RegistrationComponent {
     this.loading = true;
 
     this.httpService
-      .post<void>(RouterPaths.registration, this.form.value)
+      .post<void, AuthBody>(Endpoints.registration, this.form.value)
       .subscribe({
         next: () => {
-          this.snackBar.open(SnackBar.registrationOK, SnackBar.closeAction, { duration: 2000 });
+          this.snackBar.openOK(SnackBar.registrationOK);
           this.router.navigate([RouterPaths.signin]);
         },
-        error: (res) => {
-          if (res.error.type === ErrorTypes.primaryDuplicationException) {
+        error: ({ error }) => {
+          if (error.type === ErrorTypes.primaryDuplicationException) {
             const email = this.form.get('email');
             if (email) {
               email.setErrors({ taken: true });
               this.takenEmails.push(email.value);
             }
           }
-          this.snackBar.open(
-            SnackBar.registrationError + (res.error.message || SnackBar.errorMessage),
-            SnackBar.closeAction,
-            {
-              duration: 3500,
-            },
-          );
+          this.snackBar.openError(SnackBar.registrationError, error.message);
         },
       })
       .add(() => {

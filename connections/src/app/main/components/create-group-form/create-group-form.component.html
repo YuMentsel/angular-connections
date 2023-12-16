@@ -1,0 +1,24 @@
+<div class="create-form">
+  <h3>Create group</h3>
+  <form [formGroup]="form">
+    <mat-form-field class="create-form__field" *ngIf="!loading; else creating">
+      <mat-label>Group Name</mat-label>
+      <input matInput formControlName="group" />
+      <mat-error>{{ getErrorMessage('group') }}</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="createGroup()"
+      [disabled]="form.invalid || loading"
+    >
+      Create
+    </button>
+  </form>
+</div>
+
+<ng-template #creating
+  ><div class="create-form__creating"></div>
+  Creating...</ng-template
+>
