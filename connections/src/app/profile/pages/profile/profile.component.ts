@@ -73,9 +73,10 @@ export class ProfileComponent implements OnInit {
     this.isEditing = true;
   }
 
-  cancelEditing(): void {
+  cancelEditing(event: Event): void {
     this.isEditing = false;
     this.initForm(this.form.value);
+    event.preventDefault();
   }
 
   saveChanges(): void {

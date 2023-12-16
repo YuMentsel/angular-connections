@@ -20,7 +20,7 @@ export const groupsReducer = createReducer(
     addGroup,
     (state, { newGroup }): GroupsState => ({
       ...state,
-      groups: [newGroup, ...state.groups],
+      groups: [{ ...newGroup }, ...state.groups],
     }),
   ),
   on(

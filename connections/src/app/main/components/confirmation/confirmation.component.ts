@@ -40,11 +40,11 @@ export class ConfirmationComponent {
       .subscribe({
         next: () => {
           this.store.dispatch(deleteGroup({ groupId }));
-          this.snackBar.openOK(SnackBar.groupRemovingOK);
+          this.snackBar.openOK(SnackBar.groupDeletingOK);
           this.dialogRef.close(true);
         },
         error: ({ error }) => {
-          this.snackBar.openError(SnackBar.removingError, error.message);
+          this.snackBar.openError(SnackBar.deletingError, error.message);
         },
       })
       .add(() => {

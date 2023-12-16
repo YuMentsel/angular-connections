@@ -14,8 +14,13 @@
   </div>
 
   <ul class="people__wrapper" *ngIf="people$ | async as people">
-    <li class="person" *ngFor="let person of people" (click)="openConversation(person.uid.S)">
-      <a class="person__link" [routerLink]="'/person/' + person.uid">{{ person.name.S }}</a>
+    <li
+      [appPersonStatus]="person.uid.S"
+      class="person"
+      *ngFor="let person of people"
+      (click)="openConversation(person.uid.S)"
+    >
+      <span class="person__name" (click)="openConversation(person.uid.S)">{{ person.name.S }}</span>
     </li>
   </ul>
 </div>

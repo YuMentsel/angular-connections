@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription, of, take } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -31,7 +25,6 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
   providers: [CountdownService],
   templateUrl: './groups.component.html',
   styleUrls: ['./groups.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GroupsComponent implements OnInit, OnDestroy {
   loading = false;
@@ -53,7 +46,6 @@ export class GroupsComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private store: Store,
     private router: Router,
-    private changeDetectorRef: ChangeDetectorRef,
   ) {}
 
   ngOnInit(): void {
@@ -90,7 +82,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
           }
         },
         error: ({ error }) => {
-          this.snackBar.openError(SnackBar.creatingError, error.message);
+          this.snackBar.openError(SnackBar.loadingError, error.message);
         },
       })
       .add(() => {

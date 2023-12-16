@@ -67,6 +67,8 @@ export enum Endpoints {
   createGroup = '/groups/create',
   deleteGroup = '/groups/delete?groupID=',
   users = '/users',
+  conversationsList = '/conversations/list',
+  conversationsCreate = '/conversations/create',
 }
 
 export enum SnackBar {
@@ -75,13 +77,13 @@ export enum SnackBar {
   logoutOK = 'Logout has been successful!',
   nameUpdatingOK = 'Name updated successfully!',
   groupCreatingOK = 'Group created successfully!',
-  groupRemovingOK = 'Group removed successfully!',
+  groupDeletingOK = 'Group deleted successfully!',
   registrationError = 'Registration failed! ',
   loginError = 'Login failed! ',
   logoutError = 'Logout failed! ',
   updatingError = 'Updating failed! ',
   creatingError = 'Creating failed! ',
-  removingError = 'Removing failed! ',
+  deletingError = 'Deleting failed! ',
   loadingError = 'Loading failed! ',
   errorMessage = 'Something went wrong!',
   closeAction = 'Close',
