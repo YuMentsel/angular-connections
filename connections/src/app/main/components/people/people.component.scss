@@ -8,6 +8,10 @@
     color: #ffffff;
     border: #0a0a0a solid 1px;
     box-shadow: 5px 5px 10px #0a0a0a;
+    &.active {
+      background-color: #18252e;
+      border: #18252e solid 1px;
+    }
   }
 }
 
@@ -61,8 +65,21 @@
     transform: scale(1.05);
   }
 
-  &__link {
+  &.active {
+    background-color: #def1ff;
+    border: #def1ff solid 1px;
+  }
+
+  &__name {
+    display: flex;
+    align-items: center;
     overflow: hidden;
     text-overflow: ellipsis;
+    mat-icon {
+      display: flex;
+      justify-content: center;
+      margin-right: 7px;
+      opacity: 0.5;
+    }
   }
 }

@@ -10,7 +10,7 @@
     </button>
     <span *ngIf="remainingTime$ | async as remainingTime">{{ remainingTime }}</span>
 
-    <div class="people__loading" *ngIf="loading">Loading...</div>
+    <div class="people__loading" *ngIf="loading"><mat-spinner diameter="24"></mat-spinner></div>
   </div>
 
   <ul class="people__wrapper" *ngIf="people$ | async as people">
@@ -20,7 +20,9 @@
       *ngFor="let person of people"
       (click)="openConversation(person.uid.S)"
     >
-      <span class="person__name" (click)="openConversation(person.uid.S)">{{ person.name.S }}</span>
+      <span class="person__name" (click)="openConversation(person.uid.S)"
+        ><mat-icon>person</mat-icon>{{ person.name.S }}</span
+      >
     </li>
   </ul>
 </div>

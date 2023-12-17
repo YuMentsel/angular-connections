@@ -1,14 +1,30 @@
 import { createReducer, on } from '@ngrx/store';
 import { GroupsState } from '../models/groupsState.model';
-import { updateCountdown, addGroup, addGroups, deleteGroup } from '../actions/groups.action';
+import {
+  updateCountdown,
+  addGroup,
+  addGroups,
+  deleteGroup,
+  addMessages,
+} from '../actions/groups.action';
 
 export const initialState: GroupsState = {
   groups: [],
+  messages: {},
   countdown: { groups: 0, people: 0 },
+  dialog: {},
 };
 
 export const groupsReducer = createReducer(
   initialState,
+  on(
+    addMessages,
+    (state, { messages, key, time }): GroupsState => ({
+      ...state,
+      messages: { ...state.messages, [key]: [...(state.messages[key] || []), ...messages] },
+      dialog: { ...state.dialog, [key]: time },
+    }),
+  ),
   on(
     addGroups,
     (state, { groups }): GroupsState => ({

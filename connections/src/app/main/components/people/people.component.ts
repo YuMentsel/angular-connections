@@ -14,7 +14,7 @@ import {
 } from '../../../redux/actions/people.action';
 import { selectPeopleCountdown } from '../../../redux/selectors/group.selector';
 import { Conversation, CompanionID, ConversationID, Person } from '../../models/people.model';
-import { Response } from '../../models/groups.model';
+import { Response } from '../../../shared/models/shared.model';
 import { delay } from '../../../shared/constants/constants';
 import { MyConversation } from '../../models/my-conversation.model';
 
@@ -36,10 +36,6 @@ export class PeopleComponent implements OnInit, OnDestroy {
   disabled = false;
 
   subscription!: Subscription;
-
-  listSubscription: Subscription | undefined;
-
-  conversationListSubscription: Subscription | undefined;
 
   uid = '';
 
@@ -73,15 +69,13 @@ export class PeopleComponent implements OnInit, OnDestroy {
   selectConversationsList(): void {
     this.conversationsList$ = this.store.select(selectConversationsList);
 
-    this.listSubscription = this.conversationsList$.pipe(take(1)).subscribe((list) => {
+    this.conversationsList$.pipe(take(1)).subscribe((list) => {
       if (!list) this.loadConversationsList();
     });
   }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
-    if (this.listSubscription) this.listSubscription.unsubscribe();
-    if (this.conversationListSubscription) this.conversationListSubscription.unsubscribe();
   }
 
   loadPeople(click?: boolean): void {
@@ -123,7 +117,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
   }
 
   createConversation(companionID: string): void {
-    this.conversationListSubscription = this.httpService
+    this.httpService
       .post<ConversationID, CompanionID>(Endpoints.conversationsCreate, {
         companion: companionID,
       })

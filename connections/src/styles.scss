@@ -49,6 +49,20 @@ $purple: #7cb342;
 html,
 body {
   height: 100%;
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    margin: 0 10px;
+    background-color: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #ececec;
+    border-radius: 2px;
+  }
 }
 
 body {

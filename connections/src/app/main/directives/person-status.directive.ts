@@ -24,8 +24,7 @@ export class PersonStatusDirective implements OnInit, OnDestroy {
     this.conversations$ = this.store.select(selectConversationsList);
     this.conversationsSubscription = this.conversations$.subscribe((conversations) => {
       if (this.elementRef && conversations && this.isCompanion(conversations)) {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', '#def1ff');
-        this.renderer.setStyle(this.elementRef.nativeElement, 'border', '#def1ff');
+        this.renderer.addClass(this.elementRef.nativeElement, 'active');
       }
     });
   }

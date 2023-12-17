@@ -1,0 +1,43 @@
+:host-context(.dark-theme) {
+  .message-info__user {
+    mat-icon {
+      border: 2px solid #ffffff;
+    }
+  }
+}
+
+:host-context(.own-message) {
+  .message-info__user {
+    position: relative;
+    justify-content: flex-end;
+    h5 {
+      position: absolute;
+      right: 30px;
+    }
+  }
+}
+
+.message-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 7px;
+    mat-icon {
+      display: flex;
+      justify-content: center;
+      border: 2px solid #6d6d6d;
+      border-radius: 15px;
+      opacity: 0.5;
+    }
+  }
+
+  &__time {
+    font-size: 11px;
+    opacity: 0.5;
+  }
+}
