@@ -6,7 +6,6 @@ import { MainRoutingModule } from './main-routing.module';
 import { GroupsComponent } from './components/groups/groups.component';
 import { PeopleComponent } from './components/people/people.component';
 import { CreateGroupFormComponent } from './components/create-group-form/create-group-form.component';
-import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 import { PersonStatusDirective } from './directives/person-status.directive';
 
 @NgModule({
@@ -15,7 +14,6 @@ import { PersonStatusDirective } from './directives/person-status.directive';
     GroupsComponent,
     PeopleComponent,
     CreateGroupFormComponent,
-    ConfirmationComponent,
     PersonStatusDirective,
   ],
   imports: [CommonModule, MainRoutingModule, SharedModule],

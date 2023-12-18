@@ -19,7 +19,7 @@ import { addGroups } from '../../../redux/actions/groups.action';
 import { CreateGroupFormComponent } from '../create-group-form/create-group-form.component';
 import { Group } from '../../models/groups.model';
 import { Response } from '../../../shared/models/shared.model';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-groups',

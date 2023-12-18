@@ -2,10 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { deleteGroup } from '../../../redux/actions/groups.action';
-import { Endpoints, SnackBar } from '../../../shared/constants/enums';
-import { HttpService } from '../../../shared/services/http/http.service';
-import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
-import { ConfirmDialogData } from '../../models/groups.model';
+import { Endpoints, SnackBar } from '../../constants/enums';
+import { HttpService } from '../../services/http/http.service';
+import { SnackBarService } from '../../services/snack-bar/snack-bar.service';
+import { ConfirmDialogData } from '../../../main/models/groups.model';
 
 @Component({
   selector: 'app-confirmation',

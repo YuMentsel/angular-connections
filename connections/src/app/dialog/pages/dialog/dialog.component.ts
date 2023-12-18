@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Person } from '../../../main/models/people.model';
 import { selectPeople } from '../../../redux/selectors/people.selector';
 import { addPeople } from '../../../redux/actions/people.action';
-import { ConfirmationComponent } from '../../../main/components/confirmation/confirmation.component';
+import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 import { Group } from '../../../main/models/groups.model';
 import { addGroups } from '../../../redux/actions/groups.action';
 import { Message } from '../../models/dialog.model';
