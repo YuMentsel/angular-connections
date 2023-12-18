@@ -47,21 +47,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 36px;
     gap: 15px;
     color: #2979ff;
 
     span {
       position: absolute;
-      left: 130px;
+      left: 266px;
       font-size: 24px;
+    }
+
+    .update {
+      position: absolute;
+      left: 136px;
     }
   }
 
   &__loading {
     position: absolute;
     top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    left: 266px;
+    transform: translateY(-50%);
   }
 }
 

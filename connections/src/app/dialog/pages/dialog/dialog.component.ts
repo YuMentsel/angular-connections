@@ -35,6 +35,8 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   loading = false;
 
+  view = false;
+
   messages$!: Observable<Message[]>;
 
   groups$!: Observable<Group[]>;
@@ -180,6 +182,7 @@ export class DialogComponent implements OnInit, OnDestroy {
       this.messagesWrapper.nativeElement.scrollTop =
         this.messagesWrapper.nativeElement.scrollHeight;
     }
+    this.view = true;
   }
 
   deleteDialog(): void {
