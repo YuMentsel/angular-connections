@@ -13,6 +13,7 @@ export const errorMessages: KeyString = {
   emailTaken: FormErrorMessages.emailTaken,
   password: FormErrorMessages.password,
   passwordValid: FormErrorMessages.passwordValid,
+  message: FormErrorMessages.message,
 };
 
 export const delay = 60;

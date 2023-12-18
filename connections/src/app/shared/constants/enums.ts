@@ -10,6 +10,7 @@ export enum FormErrorMessages {
   emailTaken = 'The email is taken',
   password = 'Please enter a password',
   passwordValid = `Password isn't strong enough (min 8 symbols that include at least 1 capital letter, at least 1 digit and at least 1 special symbol - !@#$%^&*)`,
+  message = 'Please enter your message',
 }
 
 export enum ErrorTypes {
@@ -45,6 +46,7 @@ export enum Confirmation {
 export enum Countdown {
   groups = 'groups',
   people = 'people',
+  dialog = 'dialog',
 }
 
 export enum RouterPaths {
@@ -66,6 +68,8 @@ export enum Endpoints {
   groupsList = '/groups/list',
   createGroup = '/groups/create',
   deleteGroup = '/groups/delete?groupID=',
+  readGroup = '/groups/read?groupID=',
+  appendGroup = '/groups/append',
   users = '/users',
   conversationsList = '/conversations/list',
   conversationsCreate = '/conversations/create',
@@ -85,6 +89,8 @@ export enum SnackBar {
   creatingError = 'Creating failed! ',
   deletingError = 'Deleting failed! ',
   loadingError = 'Loading failed! ',
+  sendingErrorError = 'Sending failed! ',
   errorMessage = 'Something went wrong!',
   closeAction = 'Close',
+  sendingError = 'sendingError',
 }

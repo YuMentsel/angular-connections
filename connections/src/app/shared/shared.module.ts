@@ -8,6 +8,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
   declarations: [],
@@ -20,6 +21,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatSlideToggleModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
   exports: [
@@ -30,6 +32,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatDialogModule,
     MatSlideToggleModule,
     MatButtonModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
   ],
 })

@@ -4,7 +4,11 @@
 
     <nav class="header__nav">
       <ul>
-        <li><a routerLink="/" routerLinkActive="active">Main</a></li>
+        <li>
+          <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+            >Main</a
+          >
+        </li>
         <li><a routerLink="/profile" routerLinkActive="active">Profile</a></li>
       </ul>
     </nav>

@@ -8,6 +8,10 @@
     color: #ffffff;
     border: #0a0a0a solid 1px;
     box-shadow: 5px 5px 10px #0a0a0a;
+    &.active {
+      background-color: #18252e;
+      border: #18252e solid 1px;
+    }
   }
 }
 
@@ -45,14 +49,15 @@
 }
 
 .person {
+  position: relative;
   display: flex;
-  justify-content: space-between;
+justify-content: space-between;
   align-items: center;
   gap: 10px;
   height: 38px;
   background-color: #ffffff;
   border-radius: 5px;
-  padding-left: 15px;
+  padding: 0 15px;
   border: #f2f2f2 solid 1px;
   box-shadow: 5px 5px 10px #dadada;
   cursor: pointer;
@@ -61,8 +66,22 @@
     transform: scale(1.05);
   }
 
-  &__link {
+  &.active {
+    background-color: #def1ff;
+    border: #def1ff solid 1px;
+  }
+
+  &__name {
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-left: 30px;
+  }
+
+  mat-icon {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    opacity: 0.5;
+    flex-shrink: 0;
   }
 }

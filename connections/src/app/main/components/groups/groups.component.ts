@@ -17,7 +17,8 @@ import { CountdownService } from '../../../shared/services/countdown/countdown.s
 import { delay } from '../../../shared/constants/constants';
 import { addGroups } from '../../../redux/actions/groups.action';
 import { CreateGroupFormComponent } from '../create-group-form/create-group-form.component';
-import { Group, Response } from '../../models/groups.model';
+import { Group } from '../../models/groups.model';
+import { Response } from '../../../shared/models/shared.model';
 import { ConfirmationComponent } from '../confirmation/confirmation.component';
 
 @Component({
