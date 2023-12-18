@@ -20,9 +20,10 @@
       *ngFor="let person of people"
       (click)="openConversation(person.uid.S)"
     >
-      <span class="person__name" (click)="openConversation(person.uid.S)"
-        ><mat-icon>person</mat-icon>{{ person.name.S }}</span
-      >
+      <mat-icon>person</mat-icon
+      ><span class="person__name" (click)="openConversation(person.uid.S)">{{
+        person.name.S
+      }}</span>
     </li>
   </ul>
 </div>

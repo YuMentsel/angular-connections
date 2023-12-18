@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, of, take, delay } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
+import { Person } from '../../../main/models/people.model';
+import { selectPeople } from '../../../redux/selectors/people.selector';
+import { addPeople } from '../../../redux/actions/people.action';
 import { ConfirmationComponent } from '../../../main/components/confirmation/confirmation.component';
 import { Group } from '../../../main/models/groups.model';
 import { addGroups } from '../../../redux/actions/groups.action';
@@ -13,7 +16,7 @@ import {
   selectGroups,
   selectMessages,
 } from '../../../redux/selectors/group.selector';
-import { Confirmation, Countdown, RouterPaths, SnackBar } from '../../../shared/constants/enums';
+import { Confirmation, RouterPaths, SnackBar } from '../../../shared/constants/enums';
 import { CountdownService } from '../../../shared/services/countdown/countdown.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 import { delay as updatingDelay } from '../../../shared/constants/constants';
@@ -35,6 +38,8 @@ export class DialogComponent implements OnInit, OnDestroy {
   messages$!: Observable<Message[]>;
 
   groups$!: Observable<Group[]>;
+
+  users$!: Observable<Person[]>;
 
   loadingTime$!: Observable<string>;
 
@@ -91,6 +96,7 @@ export class DialogComponent implements OnInit, OnDestroy {
     this.uid = token ? JSON.parse(token).uid : '';
 
     this.checkDialog();
+    this.getUsers();
   }
 
   ngOnDestroy(): void {
@@ -108,11 +114,37 @@ export class DialogComponent implements OnInit, OnDestroy {
     });
   }
 
-  loadGroups(click?: boolean): void {
+  loadGroups(): void {
     this.dialogService.loadGroups().subscribe({
       next: (groups) => {
         this.store.dispatch(addGroups({ groups }));
-        if (click) this.countdownService.startCountdown(updatingDelay, Countdown.groups);
+      },
+      error: ({ error }) => {
+        this.snackBar.openError(SnackBar.loadingError, error.message);
+      },
+    });
+  }
+
+  getUsers() {
+    this.users$ = this.store.select(selectPeople);
+    this.users$.pipe(take(1)).subscribe(() => {
+      this.loadUsers();
+    });
+  }
+
+  getName(id: string, users: Person[] | null) {
+    let name = '...';
+    const person = users?.find((user) => user.uid.S === id);
+    if (person) {
+      name = person.uid.S === this.uid ? 'Me' : person.name.S;
+    }
+    return name;
+  }
+
+  loadUsers(): void {
+    this.dialogService.loadUsers().subscribe({
+      next: (people) => {
+        this.store.dispatch(addPeople({ people }));
       },
       error: ({ error }) => {
         this.snackBar.openError(SnackBar.loadingError, error.message);

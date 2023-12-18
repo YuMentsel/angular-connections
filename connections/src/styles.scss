@@ -60,7 +60,7 @@ body {
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: #ececec;
+    background-color: #86868659;
     border-radius: 2px;
   }
 }
@@ -99,6 +99,10 @@ a {
 
   .dark-theme & {
     color: #8d8d8d;
+  }
+
+  &.active {
+    color: #2979ff;
   }
 
   &:disabled {

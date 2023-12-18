@@ -83,8 +83,8 @@
     height: calc(100vh - 240px);
     padding: 10px 3px 10px 30px;
     box-shadow:
-      inset 0px 5px 20px #f2f2f2,
-      inset 0px -5px 20px #f2f2f2;
+      inset 0px 5px 20px #00000018,
+      inset 0px -5px 20px #00000018;
     overflow: scroll;
     overflow-x: hidden;
     gap: 5px;
@@ -115,6 +115,7 @@
   max-width: 80%;
   min-width: 170px;
   align-self: flex-start;
+  z-index: -1;
 
   &.own-message {
     background-color: #def1ff;

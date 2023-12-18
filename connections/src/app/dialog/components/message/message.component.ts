@@ -8,4 +8,6 @@ import { Message } from '../../models/dialog.model';
 })
 export class MessageComponent {
   @Input() message!: Message;
+
+  @Input() username!: string;
 }

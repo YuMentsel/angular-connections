@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, take } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Person } from '../../main/models/people.model';
 import { Group } from '../../main/models/groups.model';
 import { Message } from '../models/dialog.model';
 import { addMessages } from '../../redux/actions/groups.action';
@@ -33,6 +34,13 @@ export class DialogService {
   loadGroups(): Observable<Group[]> {
     return this.httpService
       .get<Response<Group>>(Endpoints.groupsList)
+      .pipe(take(1))
+      .pipe(map((result) => result.Items));
+  }
+
+  loadUsers(): Observable<Person[]> {
+    return this.httpService
+      .get<Response<Person>>(Endpoints.users)
       .pipe(take(1))
       .pipe(map((result) => result.Items));
   }
