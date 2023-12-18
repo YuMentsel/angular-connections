@@ -11,7 +11,7 @@
           Update
         </button>
         <span *ngIf="remainingTime$ | async as remainingTime">{{ remainingTime }}</span>
-        <button mat-raised-button color="accent" (click)="deleteDialog()" [disabled]="loading">
+        <button *ngIf="isMyDialog" mat-raised-button color="accent" (click)="deleteDialog()" [disabled]="loading">
           Delete
         </button>
 
@@ -20,6 +20,7 @@
 
       <div class="messages">
         <ul class="messages__wrapper" #messagesWrapper>
+          <div class="messages__empty" *ngIf="!(messages$ | async)?.length"><mat-icon>rate_review</mat-icon></div>
           <li
             [ngClass]="{ message: true, 'own-message': message.authorID.S === uid }"
             *ngFor="let message of messages$ | async as messages"

@@ -14,10 +14,16 @@
 }
 
 :host-context(.dark-theme) {
-  .messages__wrapper {
-    box-shadow:
-      inset 0px 5px 20px #141414,
-      inset 0px -5px 20px #141414;
+  .messages {
+    &__wrapper {
+      box-shadow:
+        inset 0px 5px 20px #141414,
+        inset 0px -5px 20px #141414;
+    }
+
+    &__empty mat-icon {
+      opacity: 0.03;
+    }
   }
 
   .message {
@@ -74,7 +80,7 @@
     display: flex;
     flex-direction: column;
     min-width: 650px;
-    height: calc(100vh - 280px);
+    height: calc(100vh - 240px);
     padding: 10px 3px 10px 30px;
     box-shadow:
       inset 0px 5px 20px #f2f2f2,
@@ -82,6 +88,20 @@
     overflow: scroll;
     overflow-x: hidden;
     gap: 5px;
+  }
+
+  &__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    mat-icon {
+      font-size: 120px;
+      width: auto;
+      height: auto;
+      opacity: 0.1;
+    }
   }
 }
 
@@ -93,6 +113,7 @@
   border-radius: 5px;
   padding: 15px;
   max-width: 80%;
+  min-width: 170px;
   align-self: flex-start;
 
   &.own-message {

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, map, take } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { Group } from '../../main/models/groups.model';
 import { Message } from '../models/dialog.model';
 import { addMessages } from '../../redux/actions/groups.action';
 import { Endpoints } from '../../shared/constants/enums';
@@ -27,5 +28,12 @@ export class DialogService {
   saveToStore(dialogId: string, messages: Message[]): void {
     const time = messages[messages.length - 1]?.createdAt?.S || '';
     this.store.dispatch(addMessages({ messages, key: dialogId, time }));
+  }
+
+  loadGroups(): Observable<Group[]> {
+    return this.httpService
+      .get<Response<Group>>(Endpoints.groupsList)
+      .pipe(take(1))
+      .pipe(map((result) => result.Items));
   }
 }

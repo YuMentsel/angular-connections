@@ -1,14 +1,19 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, of, take, delay } from 'rxjs';
 import { Store } from '@ngrx/store';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationComponent } from '../../../main/components/confirmation/confirmation.component';
+import { Group } from '../../../main/models/groups.model';
+import { addGroups } from '../../../redux/actions/groups.action';
 import { Message } from '../../models/dialog.model';
 import {
   selectDialogCountdown,
   selectDialogLoadingTime,
+  selectGroups,
   selectMessages,
 } from '../../../redux/selectors/group.selector';
-import { SnackBar } from '../../../shared/constants/enums';
+import { Confirmation, Countdown, RouterPaths, SnackBar } from '../../../shared/constants/enums';
 import { CountdownService } from '../../../shared/services/countdown/countdown.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 import { delay as updatingDelay } from '../../../shared/constants/constants';
@@ -29,6 +34,8 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   messages$!: Observable<Message[]>;
 
+  groups$!: Observable<Group[]>;
+
   loadingTime$!: Observable<string>;
 
   loadingTime!: string;
@@ -41,7 +48,11 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   timeSubscription!: Subscription;
 
+  groupsSubscription!: Subscription;
+
   uid = '';
+
+  isMyDialog = false;
 
   constructor(
     protected countdownService: CountdownService,
@@ -49,6 +60,8 @@ export class DialogComponent implements OnInit, OnDestroy {
     private store: Store,
     private route: ActivatedRoute,
     private dialogService: DialogService,
+    private dialog: MatDialog,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -76,11 +89,35 @@ export class DialogComponent implements OnInit, OnDestroy {
 
     const token = localStorage.getItem('token');
     this.uid = token ? JSON.parse(token).uid : '';
+
+    this.checkDialog();
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
-    this.timeSubscription.unsubscribe();
+    if (this.subscription) this.subscription.unsubscribe();
+    if (this.timeSubscription) this.timeSubscription.unsubscribe();
+    if (this.groupsSubscription) this.groupsSubscription.unsubscribe();
+  }
+
+  checkDialog(): void {
+    this.groups$ = this.store.select(selectGroups);
+    this.groupsSubscription = this.groups$.pipe().subscribe((groups) => {
+      if (!groups.length) this.loadGroups();
+      this.isMyDialog =
+        groups.find((group) => group.id.S === this.dialogId)?.createdBy.S === this.uid;
+    });
+  }
+
+  loadGroups(click?: boolean): void {
+    this.dialogService.loadGroups().subscribe({
+      next: (groups) => {
+        this.store.dispatch(addGroups({ groups }));
+        if (click) this.countdownService.startCountdown(updatingDelay, Countdown.groups);
+      },
+      error: ({ error }) => {
+        this.snackBar.openError(SnackBar.loadingError, error.message);
+      },
+    });
   }
 
   loadMessages(time: string, click?: boolean): void {
@@ -113,5 +150,20 @@ export class DialogComponent implements OnInit, OnDestroy {
     }
   }
 
-  deleteDialog(): void {}
+  deleteDialog(): void {
+    const dialog = this.dialog.open(ConfirmationComponent, {
+      data: {
+        message: Confirmation.deleteGroupMessage,
+        buttonText: {
+          yes: Confirmation.delete,
+          cancel: Confirmation.cancel,
+        },
+        id: this.dialogId,
+      },
+    });
+
+    dialog.afterClosed().subscribe(() => {
+      this.router.navigate([RouterPaths.main]);
+    });
+  }
 }
