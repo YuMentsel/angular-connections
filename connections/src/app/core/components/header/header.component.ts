@@ -1,4 +1,4 @@
-import { Component, Renderer2, RendererFactory2 } from '@angular/core';
+import { Component, OnInit, Renderer2, RendererFactory2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { deleteProfileInfo } from '../../../redux/actions/profile.action';
@@ -12,10 +12,10 @@ import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.se
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
   loading = false;
 
-  private isDarkTheme = false;
+  isDarkTheme = false;
 
   private renderer: Renderer2;
 
@@ -28,6 +28,14 @@ export class HeaderComponent {
     rendererFactory: RendererFactory2,
   ) {
     this.renderer = rendererFactory.createRenderer(null, null);
+  }
+
+  ngOnInit(): void {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') {
+      this.isDarkTheme = false;
+      this.toggleTheme();
+    }
   }
 
   isAuthenticated(): boolean {
@@ -58,6 +66,9 @@ export class HeaderComponent {
   toggleTheme() {
     this.isDarkTheme = !this.isDarkTheme;
     const themeClass = this.isDarkTheme ? Themes.dark : Themes.light;
+
+    this.isDarkTheme ? localStorage.setItem('theme', 'dark') : localStorage.removeItem('theme');
+
     this.renderer.removeClass(document.body, this.isDarkTheme ? Themes.light : Themes.dark);
     this.renderer.addClass(document.body, themeClass);
   }
