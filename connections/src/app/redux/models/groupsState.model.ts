@@ -2,7 +2,7 @@ import { Message } from '../../shared/models/shared.model';
 import { Group } from '../../main/models/groups.model';
 
 export interface GroupsState {
-  groups: Group[];
+  groups: Group[] | null;
   countdown: Countdown;
   dialog: { [key: string]: string };
   messages: { [key: string]: Message[] };

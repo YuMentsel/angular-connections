@@ -9,7 +9,7 @@ import {
 import { PeopleState } from '../models/peopleState.model';
 
 export const initialState: PeopleState = {
-  people: [],
+  people: null,
   conversationsList: null,
   messages: {},
   dialog: {},

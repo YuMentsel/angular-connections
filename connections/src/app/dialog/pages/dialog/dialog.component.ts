@@ -41,9 +41,9 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   messages$!: Observable<Message[]>;
 
-  groups$!: Observable<Group[]>;
+  groups$!: Observable<Group[] | null>;
 
-  users$!: Observable<Person[]>;
+  users$!: Observable<Person[] | null>;
 
   loadingTime$!: Observable<string>;
 
@@ -112,9 +112,9 @@ export class DialogComponent implements OnInit, OnDestroy {
   checkDialog(): void {
     this.groups$ = this.store.select(selectGroups);
     this.groupsSubscription = this.groups$.pipe().subscribe((groups) => {
-      if (!groups.length) this.loadGroups();
+      if (!groups) this.loadGroups();
       this.isMyDialog =
-        groups.find((group) => group.id.S === this.dialogId)?.createdBy.S === this.uid;
+        groups?.find((group) => group.id.S === this.dialogId)?.createdBy.S === this.uid;
     });
   }
 
@@ -132,17 +132,8 @@ export class DialogComponent implements OnInit, OnDestroy {
   getUsers() {
     this.users$ = this.store.select(selectPeople);
     this.users$.pipe(take(1)).subscribe((user) => {
-      if (!user.length) this.loadUsers();
+      if (!user) this.loadUsers();
     });
-  }
-
-  getName(id: string, users: Person[] | null) {
-    let name = '...';
-    const person = users?.find((user) => user.uid.S === id);
-    if (person) {
-      name = person.uid.S === this.uid ? 'Me' : person.name.S;
-    }
-    return name;
   }
 
   loadUsers(): void {

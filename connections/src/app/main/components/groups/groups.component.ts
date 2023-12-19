@@ -30,7 +30,7 @@ import { ConfirmationComponent } from '../../../shared/components/confirmation/c
 export class GroupsComponent implements OnInit, OnDestroy {
   loading = false;
 
-  groups$!: Observable<Group[]>;
+  groups$!: Observable<Group[] | null>;
 
   remainingTime$: Observable<number> = of(0);
 
@@ -53,7 +53,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.groups$ = this.store.select(selectGroups);
 
     this.groups$.pipe(take(1)).subscribe((groups) => {
-      if (!groups.length) this.loadGroups();
+      if (!groups) this.loadGroups();
     });
 
     this.remainingTime$ = this.store.select(selectCountdown(Countdown.groups));

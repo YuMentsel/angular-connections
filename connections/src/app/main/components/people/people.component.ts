@@ -27,7 +27,7 @@ import { MyConversation } from '../../models/my-conversation.model';
 export class PeopleComponent implements OnInit, OnDestroy {
   loading = false;
 
-  people$!: Observable<Person[]>;
+  people$!: Observable<Person[] | null>;
 
   conversationsList$!: Observable<Conversation[] | null>;
 
@@ -51,7 +51,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.people$ = this.store.select(selectPeople);
 
     this.people$.pipe(take(1)).subscribe((people) => {
-      if (!people.length) this.loadPeople();
+      if (!people) this.loadPeople();
     });
 
     this.selectConversationsList();
@@ -136,7 +136,9 @@ export class PeopleComponent implements OnInit, OnDestroy {
       });
   }
 
-  openConversation(companionID: string): void {
+  openConversation(event: Event, companionID: string): void {
+    event.stopPropagation();
+
     this.conversationsList$.pipe(take(1)).subscribe((conversations) => {
       const activeConversation = conversations?.find(
         (conversation) => conversation?.companionID.S === companionID,

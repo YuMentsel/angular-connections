@@ -9,7 +9,7 @@ import {
 } from '../actions/groups.action';
 
 export const initialState: GroupsState = {
-  groups: [],
+  groups: null,
   messages: {},
   countdown: {},
   dialog: {},
@@ -36,14 +36,14 @@ export const groupsReducer = createReducer(
     addGroup,
     (state, { newGroup }): GroupsState => ({
       ...state,
-      groups: [{ ...newGroup }, ...state.groups],
+      groups: [{ ...newGroup }, ...state.groups || []],
     }),
   ),
   on(
     deleteGroup,
     (state, { groupId }): GroupsState => ({
       ...state,
-      groups: state.groups.filter((group) => group.id.S !== groupId),
+      groups: state.groups?.filter((group) => group.id.S !== groupId) || null,
     }),
   ),
   on(

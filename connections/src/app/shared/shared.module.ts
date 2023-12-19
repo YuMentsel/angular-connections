@@ -10,11 +10,13 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { NameByIdPipe } from './pipes/name-by-id.pipe';
 
 @NgModule({
   declarations: [ConfirmationComponent],
   imports: [
     CommonModule,
+    NameByIdPipe,
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,

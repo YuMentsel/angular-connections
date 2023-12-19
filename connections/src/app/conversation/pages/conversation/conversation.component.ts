@@ -41,7 +41,7 @@ export class ConversationComponent implements OnInit, OnDestroy {
 
   conversations$!: Observable<Group[]>;
 
-  users$!: Observable<Person[]>;
+  users$!: Observable<Person[] | null>;
 
   loadingTime$!: Observable<string>;
 
@@ -106,7 +106,7 @@ export class ConversationComponent implements OnInit, OnDestroy {
   getUsers() {
     this.users$ = this.store.select(selectPeople);
     this.users$.pipe(take(1)).subscribe((user) => {
-      if (!user.length) this.loadUsers();
+      if (!user) this.loadUsers();
     });
   }
 
@@ -119,15 +119,6 @@ export class ConversationComponent implements OnInit, OnDestroy {
         this.snackBar.openError(SnackBar.loadingError, error.message);
       },
     });
-  }
-
-  getUserName(id: string, users: Person[] | null) {
-    let name = '...';
-    const person = users?.find((user) => user.uid.S === id);
-    if (person) {
-      name = person.uid.S === this.uid ? 'Me' : person.name.S;
-    }
-    return name;
   }
 
   loadMessages(time: string, click?: boolean): void {
