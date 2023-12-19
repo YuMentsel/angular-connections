@@ -4,6 +4,7 @@ import {
   addConversationsList,
   addPeople,
   addPeopleMessages,
+  clearStore,
   deleteFromConversationList,
 } from '../actions/people.action';
 import { PeopleState } from '../models/peopleState.model';
@@ -52,4 +53,5 @@ export const peopleReducer = createReducer(
       : [{ ...conversation }];
     return { ...state, conversationsList };
   }),
+  on(clearStore, (): PeopleState => initialState),
 );

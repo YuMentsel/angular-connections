@@ -99,8 +99,7 @@ export enum SnackBar {
   creatingError = 'Creating failed! ',
   deletingError = 'Deleting failed! ',
   loadingError = 'Loading failed! ',
-  sendingErrorError = 'Sending failed! ',
   errorMessage = 'Something went wrong!',
-  closeAction = 'Close',
   sendingError = 'Sending failed! ',
+  closeAction = 'Close',
 }

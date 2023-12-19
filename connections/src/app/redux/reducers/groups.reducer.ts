@@ -6,6 +6,7 @@ import {
   addGroups,
   deleteGroup,
   addMessages,
+  clearStore,
 } from '../actions/groups.action';
 
 export const initialState: GroupsState = {
@@ -36,7 +37,7 @@ export const groupsReducer = createReducer(
     addGroup,
     (state, { newGroup }): GroupsState => ({
       ...state,
-      groups: [{ ...newGroup }, ...state.groups || []],
+      groups: [{ ...newGroup }, ...(state.groups || [])],
     }),
   ),
   on(
@@ -53,4 +54,5 @@ export const groupsReducer = createReducer(
       countdown: { ...state.countdown, ...action },
     }),
   ),
+  on(clearStore, (): GroupsState => initialState),
 );

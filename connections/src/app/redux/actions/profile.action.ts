@@ -5,7 +5,10 @@ export enum ActionTypes {
   addProfileInfo = '[Profile] Add',
   updateProfileInfo = '[Profile] Update',
   deleteProfileInfo = '[Profile] Delete',
+  clearStore = '[Store] Clear Store',
 }
+
+export const clearStore = createAction(ActionTypes.clearStore);
 
 export const addProfileInfo = createAction(
   ActionTypes.addProfileInfo,

@@ -8,7 +8,10 @@ export enum ActionTypes {
   addConversationsList = '[People List] Add conversations list',
   deleteFromConversationList = '[People List] Delete conversations list',
   addPeopleMessages = '[People Messages] Add messages',
+  clearStore = '[Store] Clear Store',
 }
+
+export const clearStore = createAction(ActionTypes.clearStore);
 
 export const addPeopleMessages = createAction(
   ActionTypes.addPeopleMessages,

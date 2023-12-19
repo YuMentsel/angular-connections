@@ -1,7 +1,8 @@
 import { Component, OnInit, Renderer2, RendererFactory2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { deleteProfileInfo } from '../../../redux/actions/profile.action';
+import { CountdownService } from '../../../shared/services/countdown/countdown.service';
+import { clearStore } from '../../../redux/actions/profile.action';
 import { Endpoints, RouterPaths, SnackBar, Themes } from '../../../shared/constants/enums';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { HttpService } from '../../../shared/services/http/http.service';
@@ -50,7 +51,10 @@ export class HeaderComponent implements OnInit {
       .subscribe({
         next: () => {
           this.snackBar.openOK(SnackBar.logoutOK);
-          this.store.dispatch(deleteProfileInfo());
+
+          CountdownService.removeAllInstances();
+          this.store.dispatch(clearStore());
+
           this.authService.logout();
           this.router.navigate([RouterPaths.signin]);
         },

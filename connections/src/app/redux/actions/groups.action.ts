@@ -8,7 +8,10 @@ export enum ActionTypes {
   addGroup = '[Group] Add',
   deleteGroup = '[Group] Delete',
   updateCountdown = '[Countdown] Update',
+  clearStore = '[Store] Clear Store',
 }
+
+export const clearStore = createAction(ActionTypes.clearStore);
 
 export const addMessages = createAction(
   ActionTypes.addMessages,

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { selectNameByID } from '../../redux/selectors/people.selector';
 
 @Pipe({
@@ -9,6 +9,7 @@ import { selectNameByID } from '../../redux/selectors/people.selector';
 })
 export class NameByIdPipe implements PipeTransform {
   constructor(private store: Store) {}
+
   transform(id: string): Observable<string> {
     return this.store.select(selectNameByID(id));
   }
