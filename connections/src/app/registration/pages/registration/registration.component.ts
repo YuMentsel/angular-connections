@@ -1,15 +1,10 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { validatorPatterns } from '../../../shared/constants/constants';
 import { AuthBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
-import {
-  Endpoints,
-  ErrorTypes,
-  RouterPaths,
-  SnackBar,
-  ValidatorPatterns,
-} from '../../../shared/constants/enums';
+import { Endpoints, ErrorTypes, RouterPaths, SnackBar } from '../../../shared/constants/enums';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 
@@ -35,10 +30,10 @@ export class RegistrationComponent {
     this.form = this.formBuilder.group({
       name: [
         '',
-        [Validators.required, Validators.maxLength(40), Validators.pattern(ValidatorPatterns.name)],
+        [Validators.required, Validators.maxLength(40), Validators.pattern(validatorPatterns.name)],
       ],
       email: ['', [Validators.required, Validators.email, this.emailValidator.bind(this)]],
-      password: ['', [Validators.required, Validators.pattern(ValidatorPatterns.password)]],
+      password: ['', [Validators.required, Validators.pattern(validatorPatterns.password)]],
     });
   }
 

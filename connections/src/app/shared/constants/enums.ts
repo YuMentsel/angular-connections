@@ -36,12 +36,6 @@ export enum ValidatorTypes {
   pattern = 'pattern',
 }
 
-export enum ValidatorPatterns {
-  name = '^[a-zA-Zа-яА-Я ]*$',
-  nameWithDigits = '^[a-zA-Zа-яА-Я0-9 ]*$',
-  password = `(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$`,
-}
-
 export enum Confirmation {
   deleteGroupMessage = 'Are you sure you want to delete this group?',
   deleteConversationMessage = 'Are you sure you want to delete this conversation?',
