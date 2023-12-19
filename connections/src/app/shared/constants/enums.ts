@@ -24,8 +24,8 @@ export enum Themes {
 }
 
 export enum LinksText {
-  main = 'Go to main',
-  signin = 'Go to login',
+  main = 'Go to Main',
+  signin = 'Go to Login',
 }
 
 export enum ValidatorTypes {

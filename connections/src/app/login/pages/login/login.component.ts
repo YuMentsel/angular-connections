@@ -6,7 +6,6 @@ import { Endpoints, ErrorTypes, RouterPaths, SnackBar } from '../../../shared/co
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
-import { validatorPatterns } from '../../../shared/constants/constants';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +28,7 @@ export class LoginComponent {
   ) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(validatorPatterns.password)]],
+      password: ['', [Validators.required]],
     });
   }
 

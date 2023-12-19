@@ -24,6 +24,7 @@ export class AuthService {
 
   removeToken(): void {
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('theme');
   }
 
   private clearAllCookies(): void {

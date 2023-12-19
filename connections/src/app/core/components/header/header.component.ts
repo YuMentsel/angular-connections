@@ -39,6 +39,13 @@ export class HeaderComponent implements OnInit {
     }
   }
 
+  checkTheme(): void {
+    const theme = localStorage.getItem('theme');
+    if (theme === 'dark') {
+      this.toggleTheme();
+    }
+  }
+
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
@@ -54,7 +61,7 @@ export class HeaderComponent implements OnInit {
 
           CountdownService.removeAllInstances();
           this.store.dispatch(clearStore());
-
+          this.checkTheme();
           this.authService.logout();
           this.router.navigate([RouterPaths.signin]);
         },
