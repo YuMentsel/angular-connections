@@ -12,7 +12,7 @@ import {
   addConversationsList,
   addPeople,
 } from '../../../redux/actions/people.action';
-import { selectPeopleCountdown } from '../../../redux/selectors/group.selector';
+import { selectCountdown } from '../../../redux/selectors/group.selector';
 import { Conversation, CompanionID, ConversationID, Person } from '../../models/people.model';
 import { Response } from '../../../shared/models/shared.model';
 import { delay } from '../../../shared/constants/constants';
@@ -27,7 +27,7 @@ import { MyConversation } from '../../models/my-conversation.model';
 export class PeopleComponent implements OnInit, OnDestroy {
   loading = false;
 
-  people$!: Observable<Person[]>;
+  people$!: Observable<Person[] | null>;
 
   conversationsList$!: Observable<Conversation[] | null>;
 
@@ -51,12 +51,12 @@ export class PeopleComponent implements OnInit, OnDestroy {
     this.people$ = this.store.select(selectPeople);
 
     this.people$.pipe(take(1)).subscribe((people) => {
-      if (!people.length) this.loadPeople();
+      if (!people) this.loadPeople();
     });
 
     this.selectConversationsList();
 
-    this.remainingTime$ = this.store.select(selectPeopleCountdown);
+    this.remainingTime$ = this.store.select(selectCountdown(Countdown.people));
 
     this.subscription = this.remainingTime$.subscribe((time) => {
       this.disabled = time > 0;
@@ -128,7 +128,7 @@ export class PeopleComponent implements OnInit, OnDestroy {
               conversation: new MyConversation(id.conversationID, companionID),
             }),
           );
-          this.router.navigate([RouterPaths.conversation, companionID]);
+          this.router.navigate([RouterPaths.conversation, id.conversationID]);
         },
         error: ({ error }) => {
           this.snackBar.openError(SnackBar.creatingError, error.message);
@@ -136,18 +136,18 @@ export class PeopleComponent implements OnInit, OnDestroy {
       });
   }
 
-  openConversation(companionID: string): void {
+  openConversation(event: Event, companionID: string): void {
+    event.stopPropagation();
+
     this.conversationsList$.pipe(take(1)).subscribe((conversations) => {
-      const active = conversations?.some(
+      const activeConversation = conversations?.find(
         (conversation) => conversation?.companionID.S === companionID,
       );
 
-      if (active !== undefined) {
-        if (active) {
-          this.router.navigate([RouterPaths.conversation, companionID]);
-        } else {
-          this.createConversation(companionID);
-        }
+      if (activeConversation) {
+        this.router.navigate([RouterPaths.conversation, activeConversation.id.S]);
+      } else {
+        this.createConversation(companionID);
       }
     });
   }

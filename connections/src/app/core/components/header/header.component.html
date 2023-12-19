@@ -23,7 +23,7 @@
     >
       Logout
     </button>
-    <mat-slide-toggle (change)="toggleTheme()"
+    <mat-slide-toggle [checked]="isDarkTheme" (change)="toggleTheme()"
       ><mat-icon color="primary">dark_mode</mat-icon></mat-slide-toggle
     >
   </div>

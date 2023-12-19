@@ -18,10 +18,10 @@
       [appPersonStatus]="person.uid.S"
       class="person"
       *ngFor="let person of people"
-      (click)="openConversation(person.uid.S)"
+      (click)="openConversation($event, person.uid.S)"
     >
       <mat-icon>person</mat-icon
-      ><span class="person__name" (click)="openConversation(person.uid.S)">{{
+      ><span class="person__name" (click)="openConversation($event, person.uid.S)">{{
         person.name.S
       }}</span>
     </li>

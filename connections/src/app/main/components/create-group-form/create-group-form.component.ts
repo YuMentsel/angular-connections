@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
+import { validatorPatterns } from '../../../shared/constants/constants';
 import { addGroup } from '../../../redux/actions/groups.action';
-import { Endpoints, SnackBar, ValidatorPatterns } from '../../../shared/constants/enums';
+import { Endpoints, SnackBar } from '../../../shared/constants/enums';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 import { AuthService } from '../../../shared/services/auth/auth.service';
@@ -36,7 +37,7 @@ export class CreateGroupFormComponent implements OnInit {
         [
           Validators.required,
           Validators.maxLength(30),
-          Validators.pattern(ValidatorPatterns.nameWithDigits),
+          Validators.pattern(validatorPatterns.nameWithDigits),
         ],
       ],
     });

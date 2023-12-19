@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, take } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { validatorPatterns } from '../../../shared/constants/constants';
 import { AuthService } from '../../../shared/services/auth/auth.service';
-import { Endpoints, SnackBar, ValidatorPatterns } from '../../../shared/constants/enums';
+import { Endpoints, SnackBar } from '../../../shared/constants/enums';
 import { ProfileInfo, ProfileNameBody } from '../../../shared/models/shared.model';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { addProfileInfo, updateProfileInfo } from '../../../redux/actions/profile.action';
@@ -57,7 +58,7 @@ export class ProfileComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: [
         profileInfo?.name || '',
-        [Validators.required, Validators.maxLength(40), Validators.pattern(ValidatorPatterns.name)],
+        [Validators.required, Validators.maxLength(40), Validators.pattern(validatorPatterns.name)],
       ],
     });
   }

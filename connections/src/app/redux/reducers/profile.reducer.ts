@@ -1,6 +1,11 @@
 import { createReducer, on } from '@ngrx/store';
 import { ProfileInfo } from '../../shared/models/shared.model';
-import { addProfileInfo, deleteProfileInfo, updateProfileInfo } from '../actions/profile.action';
+import {
+  addProfileInfo,
+  clearStore,
+  deleteProfileInfo,
+  updateProfileInfo,
+} from '../actions/profile.action';
 import { ProfileState } from '../models/profileState.model';
 
 export const initialState: ProfileState = {
@@ -30,4 +35,5 @@ export const profileReducer = createReducer(
       profileInfo: null,
     }),
   ),
+  on(clearStore, (): ProfileState => initialState),
 );

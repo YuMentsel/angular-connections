@@ -6,12 +6,13 @@ import {
   addGroups,
   deleteGroup,
   addMessages,
+  clearStore,
 } from '../actions/groups.action';
 
 export const initialState: GroupsState = {
-  groups: [],
+  groups: null,
   messages: {},
-  countdown: { groups: 0, people: 0 },
+  countdown: {},
   dialog: {},
 };
 
@@ -22,7 +23,7 @@ export const groupsReducer = createReducer(
     (state, { messages, key, time }): GroupsState => ({
       ...state,
       messages: { ...state.messages, [key]: [...(state.messages[key] || []), ...messages] },
-      dialog: { ...state.dialog, [key]: time },
+      dialog: { ...state.dialog, [key]: time || state.dialog[key] },
     }),
   ),
   on(
@@ -36,14 +37,14 @@ export const groupsReducer = createReducer(
     addGroup,
     (state, { newGroup }): GroupsState => ({
       ...state,
-      groups: [{ ...newGroup }, ...state.groups],
+      groups: [{ ...newGroup }, ...(state.groups || [])],
     }),
   ),
   on(
     deleteGroup,
     (state, { groupId }): GroupsState => ({
       ...state,
-      groups: state.groups.filter((group) => group.id.S !== groupId),
+      groups: state.groups?.filter((group) => group.id.S !== groupId) || null,
     }),
   ),
   on(
@@ -53,4 +54,5 @@ export const groupsReducer = createReducer(
       countdown: { ...state.countdown, ...action },
     }),
   ),
+  on(clearStore, (): GroupsState => initialState),
 );

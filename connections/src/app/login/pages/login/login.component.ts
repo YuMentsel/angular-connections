@@ -2,13 +2,7 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthBody, LoginResponse } from '../../../shared/models/shared.model';
-import {
-  Endpoints,
-  ErrorTypes,
-  RouterPaths,
-  SnackBar,
-  ValidatorPatterns,
-} from '../../../shared/constants/enums';
+import { Endpoints, ErrorTypes, RouterPaths, SnackBar } from '../../../shared/constants/enums';
 import { AuthService } from '../../../shared/services/auth/auth.service';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
@@ -34,7 +28,7 @@ export class LoginComponent {
   ) {
     this.form = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.pattern(ValidatorPatterns.password)]],
+      password: ['', [Validators.required]],
     });
   }
 

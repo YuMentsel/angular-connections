@@ -16,4 +16,10 @@ export const errorMessages: KeyString = {
   message: FormErrorMessages.message,
 };
 
+export const validatorPatterns = {
+  name: /^[\p{L}\p{M}\s]+$/u,
+  nameWithDigits: /^[\p{L}\p{N}\p{M}\s]+$/u,
+  password: `(?=.*[0-9])(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z!@#$%^&*]{8,}$`,
+};
+
 export const delay = 60;

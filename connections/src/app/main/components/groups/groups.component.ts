@@ -12,14 +12,14 @@ import {
 } from '../../../shared/constants/enums';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
-import { selectGroupCountdown, selectGroups } from '../../../redux/selectors/group.selector';
+import { selectCountdown, selectGroups } from '../../../redux/selectors/group.selector';
 import { CountdownService } from '../../../shared/services/countdown/countdown.service';
 import { delay } from '../../../shared/constants/constants';
 import { addGroups } from '../../../redux/actions/groups.action';
 import { CreateGroupFormComponent } from '../create-group-form/create-group-form.component';
 import { Group } from '../../models/groups.model';
 import { Response } from '../../../shared/models/shared.model';
-import { ConfirmationComponent } from '../confirmation/confirmation.component';
+import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-groups',
@@ -30,7 +30,7 @@ import { ConfirmationComponent } from '../confirmation/confirmation.component';
 export class GroupsComponent implements OnInit, OnDestroy {
   loading = false;
 
-  groups$!: Observable<Group[]>;
+  groups$!: Observable<Group[] | null>;
 
   remainingTime$: Observable<number> = of(0);
 
@@ -53,10 +53,10 @@ export class GroupsComponent implements OnInit, OnDestroy {
     this.groups$ = this.store.select(selectGroups);
 
     this.groups$.pipe(take(1)).subscribe((groups) => {
-      if (!groups.length) this.loadGroups();
+      if (!groups) this.loadGroups();
     });
 
-    this.remainingTime$ = this.store.select(selectGroupCountdown);
+    this.remainingTime$ = this.store.select(selectCountdown(Countdown.groups));
 
     this.subscription = this.remainingTime$.subscribe((time) => {
       this.disabled = time > 0;
@@ -110,6 +110,8 @@ export class GroupsComponent implements OnInit, OnDestroy {
           cancel: Confirmation.cancel,
         },
         id: groupId,
+        endpoint: Endpoints.deleteGroup,
+        snackBarType: SnackBar.groupDeletingOK,
       },
     });
   }

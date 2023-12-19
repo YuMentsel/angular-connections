@@ -47,3 +47,15 @@ export interface Metadata {
   requestId: string;
   totalRetryDelay: number;
 }
+
+export interface Message {
+  authorID: SField;
+  message: SField;
+  createdAt: SField;
+  username: SField;
+}
+
+export interface MessageBody {
+  [key: string]: string;
+  message: string;
+}

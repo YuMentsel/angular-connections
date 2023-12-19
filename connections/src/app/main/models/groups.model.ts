@@ -15,11 +15,13 @@ export interface GroupId {
   groupID: string;
 }
 
-export interface ConfirmDialogData {
+export interface ConfirmData {
   message: string;
   buttonText: {
     yes: string;
     cancel: string;
   };
   id: string;
+  endpoint: string;
+  snackBarType: string;
 }

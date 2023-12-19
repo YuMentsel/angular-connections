@@ -1,7 +1,7 @@
 <div class="message-info">
-  <div  class="message-info__user">
+  <div class="message-info__user">
     <mat-icon>person</mat-icon>
-    <h5>{{ username }}</h5>
+    <h5>{{ message.authorID.S | nameById | async }}</h5>
   </div>
   <span>{{ message.message.S }}</span>
   <span class="message-info__time">{{ message.createdAt.S | date: 'medium' }}</span>
