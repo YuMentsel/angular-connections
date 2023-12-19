@@ -9,3 +9,9 @@ export const selectConversationsList = createSelector(
   selectPeopleState,
   (state) => state.conversationsList,
 );
+
+export const selectPeopleLoadingTime = (key: string) =>
+  createSelector(selectPeopleState, (state) => state.dialog[key]);
+
+export const selectPeopleMessages = (key: string) =>
+  createSelector(selectPeopleState, (state) => state.messages[key]);

@@ -2,10 +2,10 @@ import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { deleteGroup } from '../../../redux/actions/groups.action';
-import { Endpoints, SnackBar } from '../../constants/enums';
+import { SnackBar } from '../../constants/enums';
 import { HttpService } from '../../services/http/http.service';
 import { SnackBarService } from '../../services/snack-bar/snack-bar.service';
-import { ConfirmDialogData } from '../../../main/models/groups.model';
+import { ConfirmData } from '../../../main/models/groups.model';
 
 @Component({
   selector: 'app-confirmation',
@@ -17,7 +17,7 @@ export class ConfirmationComponent {
 
   constructor(
     public dialogRef: MatDialogRef<ConfirmationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogData,
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmData,
     private httpService: HttpService,
     private store: Store,
     private snackBar: SnackBarService,
@@ -36,11 +36,11 @@ export class ConfirmationComponent {
     this.dialogRef.disableClose = true;
 
     this.httpService
-      .delete(`${Endpoints.deleteGroup}${groupId}`)
+      .delete(`${this.data.endpoint}${groupId}`)
       .subscribe({
         next: () => {
           this.store.dispatch(deleteGroup({ groupId }));
-          this.snackBar.openOK(SnackBar.groupDeletingOK);
+          this.snackBar.openOK(this.data.snackBarType);
           this.dialogRef.close(true);
         },
         error: ({ error }) => {

@@ -39,6 +39,7 @@ export enum ValidatorPatterns {
 
 export enum Confirmation {
   deleteGroupMessage = 'Are you sure you want to delete this group?',
+  deleteConversationMessage = 'Are you sure you want to delete this conversation?',
   delete = 'Delete',
   cancel = 'Cancel',
 }
@@ -73,6 +74,9 @@ export enum Endpoints {
   users = '/users',
   conversationsList = '/conversations/list',
   conversationsCreate = '/conversations/create',
+  readConversation = '/conversations/read?conversationID=',
+  appendConversations = '/conversations/append',
+  deleteConversation = '/conversations/delete?conversationID=',
 }
 
 export enum SnackBar {
@@ -82,6 +86,7 @@ export enum SnackBar {
   nameUpdatingOK = 'Name updated successfully!',
   groupCreatingOK = 'Group created successfully!',
   groupDeletingOK = 'Group deleted successfully!',
+  conversationDeletingOK = 'Conversations deleted successfully!',
   registrationError = 'Registration failed! ',
   loginError = 'Login failed! ',
   logoutError = 'Logout failed! ',
@@ -92,5 +97,5 @@ export enum SnackBar {
   sendingErrorError = 'Sending failed! ',
   errorMessage = 'Something went wrong!',
   closeAction = 'Close',
-  sendingError = 'sendingError',
+  sendingError = 'Sending failed! ',
 }

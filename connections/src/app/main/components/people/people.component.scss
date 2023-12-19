@@ -26,6 +26,7 @@
     position: relative;
     display: flex;
     align-items: center;
+    color: #2979ff;
     span {
       position: absolute;
       left: 130px;
@@ -51,7 +52,7 @@
 .person {
   position: relative;
   display: flex;
-justify-content: space-between;
+  justify-content: space-between;
   align-items: center;
   gap: 10px;
   height: 38px;

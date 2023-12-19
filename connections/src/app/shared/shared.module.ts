@@ -12,9 +12,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ConfirmationComponent } from './components/confirmation/confirmation.component';
 
 @NgModule({
-  declarations: [
-    ConfirmationComponent
-  ],
+  declarations: [ConfirmationComponent],
   imports: [
     CommonModule,
     MatIconModule,

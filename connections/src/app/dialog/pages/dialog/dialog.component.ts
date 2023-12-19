@@ -3,20 +3,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, of, take, delay } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { MatDialog } from '@angular/material/dialog';
+import { Message } from '../../../shared/models/shared.model';
 import { Person } from '../../../main/models/people.model';
 import { selectPeople } from '../../../redux/selectors/people.selector';
 import { addPeople } from '../../../redux/actions/people.action';
 import { ConfirmationComponent } from '../../../shared/components/confirmation/confirmation.component';
 import { Group } from '../../../main/models/groups.model';
 import { addGroups } from '../../../redux/actions/groups.action';
-import { Message } from '../../models/dialog.model';
 import {
-  selectDialogCountdown,
+  selectCountdown,
   selectDialogLoadingTime,
   selectGroups,
   selectMessages,
 } from '../../../redux/selectors/group.selector';
-import { Confirmation, RouterPaths, SnackBar } from '../../../shared/constants/enums';
+import { Confirmation, Endpoints, RouterPaths, SnackBar } from '../../../shared/constants/enums';
 import { CountdownService } from '../../../shared/services/countdown/countdown.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
 import { delay as updatingDelay } from '../../../shared/constants/constants';
@@ -30,6 +30,8 @@ import { DialogService } from '../../services/dialog.service';
 })
 export class DialogComponent implements OnInit, OnDestroy {
   @ViewChild('messagesWrapper') private messagesWrapper!: ElementRef;
+
+  endpoint = Endpoints.appendGroup;
 
   dialogId!: string;
 
@@ -83,7 +85,7 @@ export class DialogComponent implements OnInit, OnDestroy {
 
     this.loadMessages(this.loadingTime);
 
-    this.remainingTime$ = this.store.select(selectDialogCountdown(this.dialogId));
+    this.remainingTime$ = this.store.select(selectCountdown(this.dialogId));
 
     this.messages$ = this.store.select(selectMessages(this.dialogId));
     this.messages$.pipe(delay(10)).subscribe(() => {
@@ -129,8 +131,8 @@ export class DialogComponent implements OnInit, OnDestroy {
 
   getUsers() {
     this.users$ = this.store.select(selectPeople);
-    this.users$.pipe(take(1)).subscribe(() => {
-      this.loadUsers();
+    this.users$.pipe(take(1)).subscribe((user) => {
+      if (!user.length) this.loadUsers();
     });
   }
 
@@ -165,7 +167,6 @@ export class DialogComponent implements OnInit, OnDestroy {
 
           if (click) {
             this.countdownService.startCountdown(updatingDelay, this.dialogId);
-            this.loadingTime$ = this.store.select(selectDialogLoadingTime(this.dialogId));
           }
         },
         error: ({ error }) => {
@@ -194,11 +195,13 @@ export class DialogComponent implements OnInit, OnDestroy {
           cancel: Confirmation.cancel,
         },
         id: this.dialogId,
+        endpoint: Endpoints.deleteGroup,
+        snackBarType: SnackBar.groupDeletingOK,
       },
     });
 
-    dialog.afterClosed().subscribe(() => {
-      this.router.navigate([RouterPaths.main]);
+    dialog.afterClosed().subscribe((value) => {
+      if (value) this.router.navigate([RouterPaths.main]);
     });
   }
 }

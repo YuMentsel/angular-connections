@@ -12,7 +12,7 @@ import {
 } from '../../../shared/constants/enums';
 import { HttpService } from '../../../shared/services/http/http.service';
 import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
-import { selectGroupCountdown, selectGroups } from '../../../redux/selectors/group.selector';
+import { selectCountdown, selectGroups } from '../../../redux/selectors/group.selector';
 import { CountdownService } from '../../../shared/services/countdown/countdown.service';
 import { delay } from '../../../shared/constants/constants';
 import { addGroups } from '../../../redux/actions/groups.action';
@@ -56,7 +56,7 @@ export class GroupsComponent implements OnInit, OnDestroy {
       if (!groups.length) this.loadGroups();
     });
 
-    this.remainingTime$ = this.store.select(selectGroupCountdown);
+    this.remainingTime$ = this.store.select(selectCountdown(Countdown.groups));
 
     this.subscription = this.remainingTime$.subscribe((time) => {
       this.disabled = time > 0;
@@ -110,6 +110,8 @@ export class GroupsComponent implements OnInit, OnDestroy {
           cancel: Confirmation.cancel,
         },
         id: groupId,
+        endpoint: Endpoints.deleteGroup,
+        snackBarType: SnackBar.groupDeletingOK,
       },
     });
   }

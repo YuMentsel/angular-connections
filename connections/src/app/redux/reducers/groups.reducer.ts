@@ -11,7 +11,7 @@ import {
 export const initialState: GroupsState = {
   groups: [],
   messages: {},
-  countdown: { groups: 0, people: 0 },
+  countdown: {},
   dialog: {},
 };
 
@@ -22,7 +22,7 @@ export const groupsReducer = createReducer(
     (state, { messages, key, time }): GroupsState => ({
       ...state,
       messages: { ...state.messages, [key]: [...(state.messages[key] || []), ...messages] },
-      dialog: { ...state.dialog, [key]: time },
+      dialog: { ...state.dialog, [key]: time || state.dialog[key] },
     }),
   ),
   on(

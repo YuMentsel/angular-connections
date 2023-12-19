@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DialogComponent } from './pages/dialog/dialog.component';
 import { DialogRoutingModule } from './dialog-routing.module';
-import { MessageComponent } from './components/message/message.component';
 import { SharedModule } from '../shared/shared.module';
-import { DialogFormComponent } from './components/dialog-form/dialog-form.component';
+import { DialogFormComponent } from '../shared/components/dialog-form/dialog-form.component';
+import { MessageComponent } from '../shared/components/message/message.component';
 
 @NgModule({
-  declarations: [DialogComponent, MessageComponent, DialogFormComponent],
-  imports: [CommonModule, DialogRoutingModule, SharedModule],
+  declarations: [DialogComponent],
+  imports: [CommonModule, DialogRoutingModule, SharedModule, DialogFormComponent, MessageComponent],
 })
 export class DialogModule {}

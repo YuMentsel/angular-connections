@@ -1,4 +1,4 @@
-import { Message } from '../../dialog/models/dialog.model';
+import { Message } from '../../shared/models/shared.model';
 import { Group } from '../../main/models/groups.model';
 
 export interface GroupsState {
@@ -9,7 +9,5 @@ export interface GroupsState {
 }
 
 export interface Countdown {
-  groups: number;
-  people: number;
   [key: string]: number;
 }

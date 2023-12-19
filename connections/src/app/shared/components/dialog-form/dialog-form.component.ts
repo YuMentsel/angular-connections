@@ -1,20 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Endpoints, SnackBar } from '../../../shared/constants/enums';
-import { AuthService } from '../../../shared/services/auth/auth.service';
-import { HttpService } from '../../../shared/services/http/http.service';
-import { SnackBarService } from '../../../shared/services/snack-bar/snack-bar.service';
-import { MessageBody } from '../../models/dialog.model';
-
-import { DialogService } from '../../services/dialog.service';
+import { DatePipe } from '@angular/common';
+import { ConversationService } from '../../../conversation/services/conversation.service';
+import { Endpoints, SnackBar } from '../../constants/enums';
+import { AuthService } from '../../services/auth/auth.service';
+import { HttpService } from '../../services/http/http.service';
+import { SnackBarService } from '../../services/snack-bar/snack-bar.service';
+import { DialogService } from '../../../dialog/services/dialog.service';
+import { MessageBody } from '../../models/shared.model';
+import { SharedModule } from '../../shared.module';
 
 @Component({
   selector: 'app-dialog-form',
+  standalone: true,
+  imports: [SharedModule, DatePipe],
   templateUrl: './dialog-form.component.html',
   styleUrls: ['./dialog-form.component.scss'],
 })
 export class DialogFormComponent implements OnInit {
-  @Input() info!: { dialogId: string; loadingTime: string };
+  @Input() info!: { dialogId: string; loadingTime: string; endpoint: string };
 
   form!: FormGroup;
 
@@ -25,6 +29,7 @@ export class DialogFormComponent implements OnInit {
     private httpService: HttpService,
     private authService: AuthService,
     private dialogService: DialogService,
+    private conversationService: ConversationService,
     private snackBar: SnackBarService,
   ) {}
 
@@ -36,9 +41,12 @@ export class DialogFormComponent implements OnInit {
 
   sendMessage(): void {
     this.loading = true;
+
+    const key = this.info.endpoint === Endpoints.appendGroup ? 'groupID' : 'conversationID';
+
     const { message } = this.form.value;
     this.httpService
-      .post<void, MessageBody>(Endpoints.appendGroup, { groupID: this.info.dialogId, message })
+      .post<void, MessageBody>(this.info.endpoint, { [key]: this.info.dialogId, message })
       .subscribe({
         next: () => {
           this.loadMessages();
@@ -53,14 +61,29 @@ export class DialogFormComponent implements OnInit {
       });
   }
 
+  loadDialog() {
+    return this.dialogService.loadDialog(this.info.dialogId, this.info.loadingTime);
+  }
+
+  loadConversation() {
+    return this.conversationService.loadConversation(this.info.dialogId, this.info.loadingTime);
+  }
+
   loadMessages(): void {
     this.loading = true;
-    this.dialogService
-      .loadDialog(this.info.dialogId, this.info.loadingTime)
+
+    const isDialog = this.info.endpoint === Endpoints.appendGroup;
+    const load = isDialog ? this.loadDialog() : this.loadConversation();
+
+    load
       .subscribe({
         next: (messages) => {
           const sortedMessages = messages.sort((a, b) => +a.createdAt.S - +b.createdAt.S);
-          this.dialogService.saveToStore(this.info.dialogId, sortedMessages);
+          if (isDialog) {
+            this.dialogService.saveToStore(this.info.dialogId, sortedMessages);
+          } else {
+            this.conversationService.saveToStore(this.info.dialogId, sortedMessages);
+          }
         },
         error: ({ error }) => {
           this.snackBar.openError(SnackBar.sendingError, error.message);
