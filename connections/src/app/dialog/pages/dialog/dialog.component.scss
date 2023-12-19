@@ -1,0 +1,131 @@
+.main {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  height: calc(100vh - 105px);
+  overflow: hidden;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    max-width: 650px;
+    gap: 30px;
+  }
+}
+
+:host-context(.dark-theme) {
+  .messages {
+    &__wrapper {
+      box-shadow:
+        inset 0px 5px 20px #141414,
+        inset 0px -5px 20px #141414;
+    }
+
+    &__empty mat-icon {
+      opacity: 0.03;
+    }
+  }
+
+  .message {
+    background-color: #313131;
+    color: #ffffff;
+    &.own-message {
+      background-color: #18252e;
+    }
+  }
+}
+
+.dialog {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border-radius: 5px;
+  width: 100%;
+
+  &__settings {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 36px;
+    gap: 15px;
+    color: #2979ff;
+
+    span {
+      position: absolute;
+      left: 266px;
+      font-size: 24px;
+    }
+
+    .update {
+      position: absolute;
+      left: 140px;
+    }
+  }
+
+  &__loading {
+    position: absolute;
+    top: 50%;
+    left: 186px;
+    transform: translateY(-50%);
+  }
+}
+
+.messages {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 5px;
+
+  ::-webkit-scrollbar {
+    width: 26px;
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+    min-width: 650px;
+    height: calc(100vh - 240px);
+    padding: 10px 3px 10px 30px;
+    box-shadow:
+      inset 0px 5px 20px #00000018,
+      inset 0px -5px 20px #00000018;
+    overflow: scroll;
+    overflow-x: hidden;
+    gap: 5px;
+  }
+
+  &__empty {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    mat-icon {
+      font-size: 120px;
+      width: auto;
+      height: auto;
+      opacity: 0.1;
+    }
+  }
+}
+
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ececec;
+  border-radius: 5px;
+  padding: 15px;
+  max-width: 80%;
+  min-width: 170px;
+  align-self: flex-start;
+  z-index: -1;
+
+  &.own-message {
+    background-color: #def1ff;
+    align-self: flex-end;
+    text-align: right;
+  }
+}

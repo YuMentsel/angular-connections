@@ -1,0 +1,7 @@
+<main class="main">
+  <img src="./assets/noun-404.svg" alt="" />
+  <p class="text">Sorry, the page you are trying to access does not exist.</p>
+  <div *ngIf="link">
+    <a [routerLink]="link">{{ linkText }}</a>
+  </div>
+</main>

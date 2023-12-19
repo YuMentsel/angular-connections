@@ -1,0 +1,29 @@
+<div class="people">
+  <div class="people__settings">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="loadPeople(true)"
+      [disabled]="disabled || loading"
+    >
+      Update
+    </button>
+    <span *ngIf="remainingTime$ | async as remainingTime">{{ remainingTime }}</span>
+
+    <div class="people__loading" *ngIf="loading"><mat-spinner diameter="24"></mat-spinner></div>
+  </div>
+
+  <ul class="people__wrapper" *ngIf="people$ | async as people">
+    <li
+      [appPersonStatus]="person.uid.S"
+      class="person"
+      *ngFor="let person of people"
+      (click)="openConversation($event, person.uid.S)"
+    >
+      <mat-icon>person</mat-icon
+      ><span class="person__name" (click)="openConversation($event, person.uid.S)">{{
+        person.name.S
+      }}</span>
+    </li>
+  </ul>
+</div>

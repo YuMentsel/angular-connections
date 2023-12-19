@@ -1,0 +1,49 @@
+<main class="main">
+  <div class="main__container container">
+    <div class="dialog">
+      <div class="dialog__settings">
+        <a routerLink="/">&#x21e6; Return back</a>
+        <button
+          class="update"
+          *ngIf="!loading"
+          mat-raised-button
+          color="primary"
+          (click)="loadMessages(loadingTime, true)"
+          [disabled]="disabled || loading"
+        >
+          Update
+        </button>
+        <span *ngIf="remainingTime$ | async as remainingTime">{{ remainingTime }}</span>
+        <button
+          *ngIf="isMyDialog"
+          mat-raised-button
+          color="accent"
+          (click)="deleteDialog()"
+          [disabled]="loading"
+        >
+          Delete
+        </button>
+
+        <div class="dialog__loading" *ngIf="loading"><mat-spinner diameter="24"></mat-spinner></div>
+      </div>
+
+      <div class="messages">
+        <ul class="messages__wrapper" #messagesWrapper>
+          <div class="messages__empty" *ngIf="!(messages$ | async)?.length">
+            <mat-icon>rate_review</mat-icon>
+          </div>
+          <ng-container *ngIf="view">
+            <li
+              [ngClass]="{ message: true, 'own-message': message.authorID.S === uid }"
+              *ngFor="let message of messages$ | async as messages"
+            >
+              <app-message
+                [message]="message"
+              ></app-message></li
+          ></ng-container>
+        </ul>
+      </div>
+      <app-dialog-form [info]="{ dialogId, loadingTime, endpoint }"></app-dialog-form>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,49 @@
+<div class="profile">
+  <h3 class="profile__title">Profile</h3>
+  <div class="profile__info" *ngIf="profileInfo$ | async as profileInfo; else loading">
+    <div class="profile__name">
+      <ng-container *ngIf="!isEditing; else edit">
+        <div class="profile__name-wrapper">
+          <span>{{ profileInfo.name.S || '' }}</span>
+        </div>
+        <button mat-raised-button color="primary" (click)="editName(profileInfo.name.S || '')">
+          Edit
+        </button>
+      </ng-container>
+    </div>
+
+    <span>Email: {{ profileInfo.email.S || '' }}</span>
+    <span>ID: {{ profileInfo.uid.S || '' }}</span>
+    <span>Created at: {{ profileInfo.createdAt.S | date: 'medium' || '' }}</span>
+  </div>
+</div>
+
+<ng-template #loading>Loading...</ng-template>
+
+<ng-template #edit>
+  <form class="profile__form" [formGroup]="form">
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input
+        class="profile__input"
+        type="text"
+        formControlName="name"
+        placeholder="John"
+        matInput
+        autocomplete="off"
+      />
+      <mat-error>{{ getErrorMessage('name') }}</mat-error>
+    </mat-form-field>
+    <div class="profile__button-wrapper">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="saveChanges()"
+        [disabled]="isUpdating || form.invalid"
+      >
+        Save
+      </button>
+      <button mat-raised-button (click)="cancelEditing($event)" [disabled]="isUpdating">Cancel</button>
+    </div>
+  </form>
+</ng-template>

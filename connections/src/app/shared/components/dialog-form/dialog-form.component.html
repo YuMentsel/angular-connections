@@ -1,0 +1,22 @@
+<form class="dialog-form" [formGroup]="form">
+  <mat-form-field class="dialog-form__field">
+    <input
+      class="dialog-form__input"
+      type="text"
+      formControlName="message"
+      placeholder="Your message..."
+      matInput
+      autocomplete="off"
+    />
+    <mat-error>{{ getErrorMessage('message') }}</mat-error>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="sendMessage()"
+    [disabled]="form.invalid || loading"
+  >
+    Send
+  </button>
+</form>

@@ -1,0 +1,30 @@
+<div class="groups">
+  <div class="groups__settings">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="loadGroups(true)"
+      [disabled]="disabled || loading"
+    >
+      Update
+    </button>
+    <span *ngIf="remainingTime$ | async as remainingTime">{{ remainingTime }}</span>
+    <button mat-raised-button color="accent" (click)="openModal()" [disabled]="loading">
+      Create
+    </button>
+
+    <div class="groups__loading" *ngIf="loading"><mat-spinner diameter="24"></mat-spinner></div>
+  </div>
+
+  <ul class="groups__wrapper" *ngIf="groups$ | async as groups">
+    <li class="group" *ngFor="let group of groups" (click)="openGroupDialog(group.id.S)">
+      <mat-icon class="group__icon">group</mat-icon
+      ><a class="group__link" [routerLink]="'/group/' + group.id.S">{{ group.name.S }}</a>
+      <span *ngIf="group.createdBy.S === uid">
+        <button mat-raised-button color="accent" (click)="deleteGroup($event, group.id.S)">
+          <mat-icon>delete_forever</mat-icon>Delete
+        </button>
+      </span>
+    </li>
+  </ul>
+</div>

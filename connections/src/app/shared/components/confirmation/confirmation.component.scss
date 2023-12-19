@@ -1,0 +1,19 @@
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 25px;
+  width: 380px;
+  height: 230px;
+
+  &__button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  mat-dialog-content,
+  mat-dialog-actions {
+    padding: 0;
+  }
+}

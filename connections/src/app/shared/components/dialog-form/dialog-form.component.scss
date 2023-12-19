@@ -1,0 +1,15 @@
+.dialog-form {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  &__field {
+    max-height: 58px;
+    width: calc(100% - 130px);
+  }
+
+  &__input {
+    position: relative;
+    top: -10px;
+  }
+}
