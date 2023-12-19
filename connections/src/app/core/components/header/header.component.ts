@@ -67,7 +67,11 @@ export class HeaderComponent implements OnInit {
     this.isDarkTheme = !this.isDarkTheme;
     const themeClass = this.isDarkTheme ? Themes.dark : Themes.light;
 
-    this.isDarkTheme ? localStorage.setItem('theme', 'dark') : localStorage.removeItem('theme');
+    if (this.isDarkTheme) {
+      localStorage.setItem('theme', 'dark');
+    } else {
+      localStorage.removeItem('theme');
+    }
 
     this.renderer.removeClass(document.body, this.isDarkTheme ? Themes.light : Themes.dark);
     this.renderer.addClass(document.body, themeClass);

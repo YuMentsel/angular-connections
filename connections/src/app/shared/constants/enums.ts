@@ -23,6 +23,11 @@ export enum Themes {
   dark = 'dark-theme',
 }
 
+export enum LinksText {
+  main = 'Go to main',
+  signin = 'Go to login',
+}
+
 export enum ValidatorTypes {
   required = 'required',
   email = 'email',

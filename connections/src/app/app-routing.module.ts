@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { authGuard } from './shared/guards/auth.guard';
 import { connectionsGuard } from './shared/guards/connections.guard';
+import { NotFoundComponent } from './core/pages/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,7 @@ const routes: Routes = [
       import('./conversation/conversation.module').then((m) => m.ConversationModule),
     canActivate: [connectionsGuard],
   },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
