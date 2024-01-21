@@ -84,7 +84,8 @@ export class PeopleComponent implements OnInit, OnDestroy {
       .get<Response<Person>>(Endpoints.users)
       .subscribe({
         next: (people) => {
-          this.store.dispatch(addPeople({ people: people.Items }));
+          const filteredPeople = people.Items.filter((person) => person.uid.S !== this.uid);
+          this.store.dispatch(addPeople({ people: filteredPeople }));
 
           if (click) {
             this.countdownService.startCountdown(delay, Countdown.people);
