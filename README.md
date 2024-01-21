@@ -2,8 +2,6 @@
 
 - Task: [Connections project with real backend](https://github.com/rolling-scopes-school/tasks/blob/master/tasks/connections/README.md)
 - Deploy: [Connections](https://yumentsel-connections.netlify.app/)
-- Done 20.12.2023 / deadline 20.12.23
-- Score: 800 / 800
 
 - [x] **Registration - 60 points**
 
